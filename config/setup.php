@@ -34,7 +34,7 @@ try{
         admin INT DEFAULT 0,
         active INT DEFAULT 1,
         verification VARCHAR(32),
-        image_location VARCHAR(255) NOT NULL DEFAULT './page_imgs/blank_profile_picture.png',
+        profile_img_loc VARCHAR(255) NOT NULL DEFAULT './page_imgs/blank_profile_picture.png',
         bio TEXT
     );";
     $pdo->query($user_table);
@@ -49,6 +49,7 @@ try{
     // extended user table
     $user_table = "CREATE TABLE IF NOT EXISTS `users`
     (
+        
         id INT NOT NULL PRIMARY KEY,
         last_name VARCHAR(32) NOT NULL,
         admin INT DEFAULT 0,
@@ -92,6 +93,15 @@ try{
     (
         user_id INT NOT NULL PRIMARY KEY,
         blocked_id INT NOT NULL
+    );";
+    $pdo->query($user_table);
+
+
+    // notification
+    $user_table = "CREATE TABLE IF NOT EXISTS `users`
+    (
+        user_id INT NOT NULL PRIMARY KEY,
+        blocked_id INT,
     );";
     $pdo->query($user_table);
 

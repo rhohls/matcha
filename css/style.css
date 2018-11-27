@@ -3,9 +3,9 @@
 }
 
 :root{
-	--dblue: rgb(71, 186, 231);
-	--lblue: rgb(150, 238, 209);
-	--vdblue: rgb(52, 100, 255);
+	--dblue: rgb(226, 71, 231);
+	--lblue: rgb(210, 150, 238);
+	--vdblue: rgb(174, 52, 255);
 }
 
 body {
@@ -143,6 +143,7 @@ h1{
 	float: right; 
 	background: var(--lblue);
 	border-radius: 0 10px 10px 0;
+	padding: 10px;
 }
 /* sidebar */
 #side_bar{
@@ -256,6 +257,7 @@ h1{
 
 #profile-image{
 	float: left;
+	margin: 20px;
 }
 
 #personal-info{

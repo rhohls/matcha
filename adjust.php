@@ -4,18 +4,14 @@ require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
 
-$redirect = '#';
+require_once 'logged_in.php';
+
 $error = 0;
 
 $adjust_info = array();
 $uid = $_SESSION['uid'];
-
-if (!isset($_SESSION['uid'])){
-	alert("You need to be logged in to do that", "login.php");	
-	header('Location: login.php');
-}
-$uid = $_SESSION['uid'];
 $uploads_dir = "./imgs";
+
 // account info change
 if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 {
@@ -59,7 +55,7 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 	}
 
 	if ($_POST["bio"] !== "")	{
-		$adjust_info["bio"] = addQuotes($_POST["bio"]);
+		$adjust_info["bio"] = addQuotes(sanitize($_POST["bio"]));
 	}	
 
 	$adjust_str =  urldecode(http_build_query($adjust_info,'\'',', '));
@@ -131,7 +127,7 @@ else if(isset($_POST["insert"]))
 
 			<!-- Main content -->
 			<div id="items">
-				<h2>Adjust account info</h2>
+				<h2>Adjust Basic account info</h2>
 				<br>
 				<form action="#" method="POST">
 					<table class="form_table">
@@ -150,12 +146,7 @@ else if(isset($_POST["insert"]))
 						<tr>
 							<td>New email adress:</td>
 							<td><input type="email" name="email" value=""/></td>
-						</tr>
-						<tr>
-							<td>Bio:</td>
-							<td><textarea name="bio" ></textarea></td>
-						</tr>
-						
+						</tr>						
 						<tr>
 							<td>Notify on comment:</td>
 							<td><select name="notify">
@@ -164,6 +155,34 @@ else if(isset($_POST["insert"]))
 								<option value='no' >No</option>
 								</select>
 							</td>
+						</tr>
+
+						<tr align="right">
+							<td><input type="submit" name="submit" value="OK"/></td>
+						</tr>
+					</table>
+				</form>
+
+				<h2>Adjust other info</h2>
+				<br>
+				<form action="#" method="POST">
+					<table class="form_table">
+						<tr>
+							<td>Bio:</td>
+							<td><textarea name="bio" ></textarea></td>
+						</tr>
+						<tr>
+							<td>Sexual prefrence:</td>
+							<td><select name="notify">
+								<option value='no_change' >No Change</option>
+								<option value='yes' >Yes</option>
+								<option value='no' >No</option>
+								</select>
+							</td>
+						</tr>				
+						<tr>
+							<td>Interests:</td>
+							<td><input type="text" name="login" value=""/></td>
 						</tr>
 
 						<tr align="right">
