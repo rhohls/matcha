@@ -33,7 +33,9 @@ try{
         confirmed INT DEFAULT 0,
         admin INT DEFAULT 0,
         active INT DEFAULT 1,
-        verification VARCHAR(32)
+        verification VARCHAR(32),
+        image_location VARCHAR(255) NOT NULL DEFAULT './page_imgs/blank_profile_picture.png',
+        bio TEXT
     );";
     $pdo->query($user_table);
     // adding admin
@@ -85,6 +87,13 @@ try{
     );";
     $pdo->query($comment_table);
 
+    // Blocked
+    $user_table = "CREATE TABLE IF NOT EXISTS `users`
+    (
+        user_id INT NOT NULL PRIMARY KEY,
+        blocked_id INT NOT NULL
+    );";
+    $pdo->query($user_table);
 
     echo "Databse created successfully!" . PHP_EOL;
 }

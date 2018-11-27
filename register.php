@@ -72,7 +72,7 @@ if ($_POST["submit"] == "OK")
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Camagru</title>
+	<title>Matcha</title>
 </head>
 <body>
 	<div class="main_wrapper">

@@ -4,7 +4,7 @@ session_start();
 function getSidebarLinks(){
 if (isset($_SESSION['uid'])){
 	$id = $_SESSION['uid'];
-	echo "<li><a href=user_images.php?usr_id=$id>My images</a></li>";
+	echo "<li><a href=profile.php?usr_id=$id>My Profile</a></li>";
 	echo "<li><a href=edit.php>Edit Previous image</a></li>";
 	// list of user made images
 	// delete image

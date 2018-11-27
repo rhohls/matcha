@@ -3,6 +3,8 @@ session_start();
 require_once 'connect.php';
 require_once 'generic_functions.php';
 
+require_once 'logged_in.php';
+
 
 if (!isset($_SESSION['uid'])){
 	header('Location: login.php');
@@ -46,7 +48,7 @@ if(isset($_POST["insert"]))
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Camagru</title>
+	<title>Matcha</title>
 </head>
 <body>
 	<div class="main_wrapper">

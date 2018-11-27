@@ -250,6 +250,22 @@ h1{
 }
 
 
+.profile-header{
+	display: inline-block;
+}
+
+#profile-image{
+	float: left;
+}
+
+#personal-info{
+	float: left;
+	margin-left: 20px;
+}
+
+#upload-img{
+	margin: auto;
+}
 
 
 

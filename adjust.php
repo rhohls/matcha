@@ -11,9 +11,13 @@ $adjust_info = array();
 $uid = $_SESSION['uid'];
 
 if (!isset($_SESSION['uid'])){
+	alert("You need to be logged in to do that", "login.php");	
 	header('Location: login.php');
 }
-else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
+$uid = $_SESSION['uid'];
+$uploads_dir = "./imgs";
+// account info change
+if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 {
 	if ($_POST["passwd"] !== "")
 	{
@@ -54,6 +58,10 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 			$adjust_info["notify"] = 0;
 	}
 
+	if ($_POST["bio"] !== "")	{
+		$adjust_info["bio"] = addQuotes($_POST["bio"]);
+	}	
+
 	$adjust_str =  urldecode(http_build_query($adjust_info,'\'',', '));
 
  	if ($adjust_str != ""){
@@ -71,6 +79,39 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 		alert_info('Please enter information to change');
 	 }
 }
+// image upload
+else if(isset($_POST["insert"]))  
+{ 
+	$file = $_FILES["image"]["tmp_name"];
+
+	if ($file){
+	$type = explode('/', $_FILES["image"]["type"]);
+	$name = uniqid() . "." . $type[1];
+	$store_location = "$uploads_dir/$name";
+	// use finfo_open to verify type
+
+	move_uploaded_file($file, $store_location);
+
+	$query = "INSERT INTO `images` (user_id, image_location) VALUES (:uid, :loc)";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["uid" => $uid, "loc" => $store_location]); //use this for security
+	
+	alert_info("Please choose a file to upload");
+
+	if(isset($_POST["Change profile"])){
+		$query = "UPDATE `users` SET (profile_img) VALUES (:img_loc) WHERE id=:uid;";
+		
+		$stmt = $pdo->prepare($query);
+		$stmt->execute(["uid" => $uid, "img_loc" => $store_location]); 
+	}
+
+
+	}
+	else{
+		alert_info("Please choose a file to upload");
+	}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +121,7 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Camagru</title>
+	<title>Matcha</title>
 </head>
 <body>
 	<div class="main_wrapper">
@@ -111,6 +152,11 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 							<td><input type="email" name="email" value=""/></td>
 						</tr>
 						<tr>
+							<td>Bio:</td>
+							<td><textarea name="bio" ></textarea></td>
+						</tr>
+						
+						<tr>
 							<td>Notify on comment:</td>
 							<td><select name="notify">
 								<option value='no_change' >No Change</option>
@@ -125,7 +171,23 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 						</tr>
 					</table>
 				</form>
-				</table>
+
+
+				<h2> Upload an Image:</h2>
+					<div id="upload-img">
+						<form method="POST"  enctype="multipart/form-data">  
+							<input type="file" name="image" accept="image/*" />  
+							<br /> 
+							<br>
+							<input type="submit" name="insert" value="Change profile"/>
+							<br>
+							<input type="submit" name="insert" value="Upload to gallery"/> 
+						</form> 
+					</div>
+
+
+
+				
 			</div>
 			<!-- End main contents -->
 

@@ -29,8 +29,8 @@ function getUserName()
 <div class="menu_bar">
 	<ul>
 		<li><a href="index.php">Home</a></li>
-		<li><a href="take_picture.php">Take/Upload picture</a></li>
-		<li><a href="edit.php">Edit Image</a></li>
+		<li><a href="#">???</a></li>
+		<li><a href="#">!!!</a></li>
 
 		
 		<?php
