@@ -8,14 +8,11 @@ function profileBlocked($profile_id, $uid, $pdo){
 	$stmt->execute(["uid" => $profile_id]);
 
 	$blocked_users = $stmt->fetchAll();
-	// echo"blocked user array: ";
-	// var_dump($blocked_users);
 
 	foreach ($blocked_users as $user){
-		if ($user['user_id'] == )
+		if ($user['user_id'] == $uid)
+			return(true);
 	}
-
-
 	return (false);
 }
 

@@ -11,7 +11,7 @@ $uid = $_SESSION['uid'];
 
 if(!isset($_GET['usr_id']) ||
 	profileBlocked($profile_id, $uid, $pdo)){
-	alert("User does not exit","index.php");
+	alert("User does not exist","index.php");
 	die();
 }
 
