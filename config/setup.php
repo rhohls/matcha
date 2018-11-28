@@ -35,7 +35,9 @@ try{
         active INT DEFAULT 1,
         verification VARCHAR(32),
         profile_img_loc VARCHAR(255) NOT NULL DEFAULT './page_imgs/blank_profile_picture.png',
-        bio TEXT
+        bio TEXT,
+        sex_pref VARCHAR(12) NOT NULL DEFAULT 'Bisexual',
+        gender VARCHAR(8) NOT NULL DEFAULT 'none'
     );";
     $pdo->query($user_table);
     // adding admin
@@ -46,16 +48,16 @@ try{
         $pdo->query($query);
     }
     
-    // extended user table
-    $user_table = "CREATE TABLE IF NOT EXISTS `users`
-    (
+    // // extended user table
+    // $user_table = "CREATE TABLE IF NOT EXISTS `users`
+    // (
         
-        id INT NOT NULL PRIMARY KEY,
-        last_name VARCHAR(32) NOT NULL,
-        admin INT DEFAULT 0,
-        active INT DEFAULT 1
-    );";
-    $pdo->query($user_table);
+    //     id INT NOT NULL PRIMARY KEY,
+    //     last_name VARCHAR(32) NOT NULL,
+    //     admin INT DEFAULT 0,
+    //     active INT DEFAULT 1
+    // );";
+    // $pdo->query($user_table);
 
 
     // Image Table
@@ -75,7 +77,6 @@ try{
         user_to INT NOT NULL,
         liked INT DEFAULT 0,
         viewed INT DEFAULT 0
-
     );";
     $pdo->query($img_table);
 
@@ -89,10 +90,11 @@ try{
     $pdo->query($comment_table);
 
     // Blocked
-    $user_table = "CREATE TABLE IF NOT EXISTS `users`
+    $user_table = "CREATE TABLE IF NOT EXISTS `blocked`
     (
-        user_id INT NOT NULL PRIMARY KEY,
-        blocked_id INT NOT NULL
+        user_id INT NOT NULL,
+        blocked_id INT NOT NULL,
+        fake INT NOT NULL DEFAULT 0
     );";
     $pdo->query($user_table);
 
@@ -100,8 +102,8 @@ try{
     // notification
     $user_table = "CREATE TABLE IF NOT EXISTS `users`
     (
-        user_id INT NOT NULL PRIMARY KEY,
-        blocked_id INT,
+        user_id INT NOT NULL ,
+        blocked_id INT
     );";
     $pdo->query($user_table);
 

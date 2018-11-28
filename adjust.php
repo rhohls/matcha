@@ -47,13 +47,14 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 		$adjust_info["email"] = addQuotes($_POST["email"]);
 	}	
 
-	if ($_POST["notify"] !== "no_change")	{
-		if ($_POST["notify"] == 'yes')
-			$adjust_info["notify"] = 1;
-		else
-			$adjust_info["notify"] = 0;
+	if ($_POST["sex_pref"] !== "no_change")	{
+		$adjust_info["sex_pref"] = addQuotes($_POST["sex_pref"]);
 	}
-
+	
+	if ($_POST["gender"] !== "no_change")	{
+		$adjust_info["gender"] = addQuotes($_POST["gender"]);
+	}
+	
 	if ($_POST["bio"] !== "")	{
 		$adjust_info["bio"] = addQuotes(sanitize($_POST["bio"]));
 	}	
@@ -168,15 +169,26 @@ else if(isset($_POST["insert"]))
 				<form action="#" method="POST">
 					<table class="form_table">
 						<tr>
+							<td>Gender:</td>
+							<td><select name="gender">
+								<option value='no_change' >No Change</option>
+								<option value='male' >Male</option>
+								<option value='female' >Female</option>
+								</select>
+							</td>
+						</tr>
+						
+						<tr>
 							<td>Bio:</td>
 							<td><textarea name="bio" ></textarea></td>
 						</tr>
 						<tr>
 							<td>Sexual prefrence:</td>
-							<td><select name="notify">
+							<td><select name="sex_pref">
 								<option value='no_change' >No Change</option>
-								<option value='yes' >Yes</option>
-								<option value='no' >No</option>
+								<option value='hetrosexual' >Hetrosexual</option>
+								<option value='bisexual' >Bi-sexual</option>
+								<option value='homosexual' >Homosexual</option>
 								</select>
 							</td>
 						</tr>				
@@ -184,6 +196,7 @@ else if(isset($_POST["insert"]))
 							<td>Interests:</td>
 							<td><input type="text" name="login" value=""/></td>
 						</tr>
+
 
 						<tr align="right">
 							<td><input type="submit" name="submit" value="OK"/></td>

@@ -6,6 +6,10 @@ function getUserName()
 	else
 		echo "Guest";
 }
+
+function getNotifications($uid){
+	return (7);
+}
 ?>
 
 <script type='text/javascript' src='javascript/scripts.js'></script>
@@ -36,6 +40,9 @@ function getUserName()
 		<?php
 		if (isset($_SESSION['uid'])){
 			echo "<li><a href='adjust.php'>My Account</a></li>";
+			echo "<li><a href='notifications.php'>Notifications(" 
+			. getNotifications($_SESSION['uid']) . ")</a></li>";
+			
 		}else{
 			echo "<li><a href='register.php'>Register</a></li>";
 			echo "<li><a href='login.php'>Login</a></li>";

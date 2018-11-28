@@ -2,25 +2,31 @@
 session_start();
 require_once 'connect.php';
 require_once 'generic_functions.php';
+require_once './functions/profile_func.php';
 
-if(!isset($_GET['usr_id'])){
+require_once 'logged_in.php';
+
+$profile_id = $_GET['usr_id'];
+$uid = $_SESSION['uid'];
+
+if(!isset($_GET['usr_id']) ||
+	profileBlocked($profile_id, $uid, $pdo)){
 	alert("User does not exit","index.php");
 	die();
 }
-$uid = $_GET['usr_id'];
 
-// $query = "SELECT * FROM `images` JOIN `users` ON images.user_id=users.id WHERE img_id=:id";
-// $stmt = $pdo->prepare($query);
-// $stmt->execute(["id" => $img_id]);
+if ($profile_id != $uid){
+	addView($profile_id, $uid, $pdo);
+}
 
-// $image = $stmt->fetch();
+if (isset($_POST['submit'])){
+	if ($_POST['submit'] == 'Like')
+		addLike($profile_id, $uid, $pdo);
+	if ($_POST['submit'] == 'Un-like')
+		removeLike($profile_id, $uid, $pdo);
+}
 
 
-// $query = "SELECT * FROM `comments` JOIN `users` ON comments.commentator_id=users.id WHERE comments.img_id=:id;";
-// $stmt = $pdo->prepare($query);
-// $stmt->execute(["id" => $img_id]);
-
-// $comments = $stmt->fetchAll();
 
 
 
@@ -43,6 +49,7 @@ $uid = $_GET['usr_id'];
 
 			<div id="items">
 				<!-- Main content -->
+				<?php var_dump($_POST); ?>
 
 				<div class="profile-header">
 					<img src="./page_imgs/blank_profile_picture.png" id="profile-image" height="300px"> <!-- float left -->
@@ -64,7 +71,12 @@ $uid = $_GET['usr_id'];
 				</article>
 
 
-			
+			<!-- disable button  -->
+			<!-- or -- you have liked this profile -->
+			<form action="#" method="POST">
+				<input type="submit" name="submit" value="Like"/>
+				<input type="submit" name="submit" value="Un-like"/>
+			</form>
 			<!-- End main contents -->
 			</div>
 
