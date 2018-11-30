@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Matcha</title>
+</head>
+<body>
+	<div class="main_wrapper">
+		<!-- Header -->
+
+		{% block navbar %}
+			<script type='text/javascript' src='javascript/scripts.js'></script>
+			<link rel="shortcut icon" href="favicon.ico">
+
+			<!-- This is ther header section -->
+			<div id="header_wrapper">
+				<img id="logo" src="page_imgs/logo.png" />
+				<a id="name">Matcha</a>
+
+				<div id="login_stuff">
+					<a><button onclick="logOut();">Log Out</button></a>
+				</div>
+			</div>
+
+			<!-- This is the menubar -->		
+			<div class="menu_bar">
+				<ul>
+					<li><a href="index.php">Home</a></li>
+					<li><a href="#">???</a></li>
+					<li><a href="#">!!!</a></li>
+					<li><a href="#">{{header.message}}</a></li>
+					
+					<li><a href='register.php'>Register</a></li>
+					<li><a href='login.php'>Login</a></li>
+
+				</ul>
+			</div>
+		{% endblock %}		
+
+
+		<div class="content_wrapper">
+			<!-- Main content -->
+			<div id="items">
+				{% block body %}
+				{% endblock %}
+				
+			</div>
+			<!-- End main contents -->
+			<!-- Sidebar -->
+			{% block sidebar %}
+			<div id="side_bar">
+				<div id="categories_title">Cool links</div>
+					<ul id="cat_list">
+
+						<li><a href='profile.php?usr_id=999'>My Profile</a></li>
+						<li><a href='views.php'>Views and likes</a></li>
+											
+
+
+					</ul>
+				<div class="padding"></div>
+			</div>
+			{% endblock %}			
+
+			
+			<div id="clear"></div>
+			
+
+		</div>
+	</div>
+
+	<div>
+	{% block footer %}
+		<div id="footer">Copyright matcha</div>
+	{% endblock %}
+	</div>
+</body>
+</html>
