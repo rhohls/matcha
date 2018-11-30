@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+id
+user_name
+password
+email 
+first_name 
+last_name 
+confirmed 
+admin
+active 
+verification 
+num_notifications 
+profile_img_loc 
+bio 
+gender
+
+
+
+{% block body %}
+<div class="profile-header">
+	<h1>{{profile.user_name}}</h1>
+	<h2>{{profile.first_name}} {{profile.last_name}}</h2>
+	<img src="{{profile.profile_img_loc}}" id="profile-image" height="300px"> <!-- float left -->
+
+	<div id="personal-info">
+		<strong>Birthday</strong>{{profile.birthdate}}
+		<br>
+		<strong>Last online</strong>{{profile.birthdate}}		
+		<br>
+	</div>
+
+
+</div>
+
+<h3>Bio</h3>
+
+<article>
+	User bio here
+</article>
+
+
+{% endblock %}
