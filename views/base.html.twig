@@ -15,13 +15,16 @@
 			<script type='text/javascript' src='javascript/scripts.js'></script>
 			<link rel="shortcut icon" href="favicon.ico">
 
-			<!-- This is ther header section -->
+			<!-- This is the header section -->
 			<div id="header_wrapper">
 				<img id="logo" src="page_imgs/logo.png" />
 				<a id="name">Matcha</a>
 
 				<div id="login_stuff">
-					<a><button onclick="logOut();">Log Out</button></a>
+					<a>Logged in as: {{base.username}}</a>
+					{% if base.loggedin %}
+						<a><button onclick="logOut();">Log Out</button></a>
+					{% endif %}
 				</div>
 			</div>
 
@@ -31,22 +34,39 @@
 					<li><a href="index.php">Home</a></li>
 					<li><a href="#">???</a></li>
 					<li><a href="#">!!!</a></li>
-					<li><a href="#">{{header.message}}</a></li>
-					
-					<li><a href='register.php'>Register</a></li>
-					<li><a href='login.php'>Login</a></li>
+
+					{% if base.loggedin %}
+						<li><a href='adjust.php'>My Account</a></li>
+						<li><a href='notifications.php'>
+							Notifications({{base.notifications}})
+						</a></li>
+					{% else %}
+						<li><a href='register.php'>Register</a></li>
+						<li><a href='login.php'>Login</a></li>
+					{% endif %}
 
 				</ul>
 			</div>
 		{% endblock %}		
 
 
+
+
+
+
+
 		<div class="content_wrapper">
 			<!-- Main content -->
 			<div id="items">
 				{% block body %}
-				{% endblock %}
 				
+				{% endblock %}
+
+
+
+
+
+
 			</div>
 			<!-- End main contents -->
 			<!-- Sidebar -->
@@ -55,20 +75,18 @@
 				<div id="categories_title">Cool links</div>
 					<ul id="cat_list">
 
-						<li><a href='profile.php?usr_id=999'>My Profile</a></li>
-						<li><a href='views.php'>Views and likes</a></li>
-											
-
+					{% if base.loggedin %}
+						<li><a href="profile.php?usr_id={{base.uid}}">My Profile</a></li>
+						<li><a href="views.php">Views and likes</a></li>
+					{% else %}
+						<a>Log in to see fancy links</a>
+					{% endif %}
 
 					</ul>
 				<div class="padding"></div>
 			</div>
 			{% endblock %}			
-
-			
 			<div id="clear"></div>
-			
-
 		</div>
 	</div>
 

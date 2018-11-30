@@ -1,11 +1,10 @@
 <?php
 
-require_once 'twig.php';
+session_start();
 
+require_once 'require.php';
 
 echo $twig->render('index.html.twig', array(
 	'location' => 'world',
-	'header' => array(
-		'message' => 'who me?'
-	)
+	'base' => $base_array
 ));
