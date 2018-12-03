@@ -11,12 +11,11 @@ try {
     $pdo = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->query("use `$DB_NAME`");
-    }
-catch(PDOException $e)
-    {
+}
+catch(PDOException $e){
     echo "Connection failed: " . $e->getMessage() . PHP_EOL;
     die();
-    }
+}
 
 require_once 'twig.php';
 ?>

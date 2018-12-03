@@ -1,0 +1,117 @@
+<?php
+
+session_start();
+require_once 'require.php';
+
+require_once 'logged_in.php';
+
+$error = 0;
+
+$adjust_info = array();
+$uid = $_SESSION['uid'];
+$uploads_dir = "./imgs";
+
+// account info change
+if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
+{
+	if ($_POST["passwd"] !== "")
+	{
+		$pwd_error = checkPassword($_POST["passwd"]);
+		
+		if ($_POST["passwd"] !== $_POST["checkpasswd"]){
+			alert_info("Passwords do not match");
+			$error = 1;
+		}
+		
+		// password security level
+		else if ($pwd_error){
+			$error = 1;
+			alert_info($pwd_error);
+		}
+		else {
+			$hashedpwd = hashPW($_POST["passwd"]);
+			$adjust_info["password"] = addQuotes($hashedpwd);
+		}
+	}
+	
+	if ($_POST["login"] !== "")	{
+		if (userExist($pdo, $_POST["login"])){
+			$error = 1;
+			alert_info("Username already taken");
+		}
+		$adjust_info["user_name"] = addQuotes($_POST["login"]);
+	}
+
+	if ($_POST["email"] !== "")	{
+		$adjust_info["email"] = addQuotes($_POST["email"]);
+	}	
+
+	if ($_POST["sex_pref"] !== "no_change")	{
+		$adjust_info["sex_pref"] = addQuotes($_POST["sex_pref"]);
+	}
+	
+	if ($_POST["gender"] !== "no_change")	{
+		$adjust_info["gender"] = addQuotes($_POST["gender"]);
+	}
+	
+	if ($_POST["bio"] !== "")	{
+		$adjust_info["bio"] = addQuotes(sanitize($_POST["bio"]));
+	}	
+
+	$adjust_str =  urldecode(http_build_query($adjust_info,'\'',', '));
+
+ 	if ($adjust_str != ""){
+		$query = "UPDATE `users` SET $adjust_str WHERE id=:uid;";
+
+		$stmt = $pdo->prepare($query);
+		$stmt->execute(['uid' => $uid]); //use this for security
+
+		$changed = array_keys($adjust_info);
+		if (isset($adjust_info["user_name"]))
+			$_SESSION['user_name'] = trim($adjust_info['user_name'], '\'');
+		alert_info('The following account info has been changed:\n'. implode(", ", $changed));
+	 }
+	 else if ($error != 1){
+		alert_info('Please enter information to change');
+	 }
+}
+// image upload
+else if(isset($_POST["insert"]))  
+{ 
+	$file = $_FILES["image"]["tmp_name"];
+
+	if ($file){
+	$type = explode('/', $_FILES["image"]["type"]);
+	$name = uniqid() . "." . $type[1];
+	$store_location = "$uploads_dir/$name";
+	// use finfo_open to verify type
+
+	move_uploaded_file($file, $store_location);
+
+	$query = "INSERT INTO `images` (user_id, image_location) VALUES (:uid, :loc)";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["uid" => $uid, "loc" => $store_location]); //use this for security
+	
+	alert_info("Please choose a file to upload");
+
+	if(isset($_POST["Change profile"])){
+		$query = "UPDATE `users` SET (profile_img) VALUES (:img_loc) WHERE id=:uid;";
+		
+		$stmt = $pdo->prepare($query);
+		$stmt->execute(["uid" => $uid, "img_loc" => $store_location]); 
+	}
+
+
+	}
+	else{
+		alert_info("Please choose a file to upload");
+	}
+}
+
+
+
+
+
+echo $twig->render('adjust.html.twig', array(
+	'base' => $base_array
+));

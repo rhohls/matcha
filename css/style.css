@@ -265,9 +265,15 @@ h1{
 	margin-left: 20px;
 }
 
+#personal-info strong{
+	display: inline-block;
+	width: 170px;
+}
+
 #upload-img{
 	margin: auto;
 }
+
 
 
 

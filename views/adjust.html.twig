@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2>Adjust Basic account info</h2>
+<br>
+<form action="#" method="POST">
+	<table class="form_table">
+		<tr>
+			<td>New username:</td>
+			<td><input type="text" name="login" value=""/></td>
+		</tr>
+		<tr>
+			<td>New password:</td>
+			<td><input type="password" name="passwd" value=""/></td>
+		</tr>
+		<tr>
+			<td>Retype new password:</td>
+			<td><input type="password" name="checkpasswd" value=""/></td>
+		</tr>
+		<tr>
+			<td>New email adress:</td>
+			<td><input type="email" name="email" value=""/></td>
+		</tr>						
+		<tr>
+			<td>Notify on comment:</td>
+			<td><select name="notify">
+				<option value='no_change' >No Change</option>
+				<option value='yes' >Yes</option>
+				<option value='no' >No</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr align="right">
+			<td><input type="submit" name="submit" value="OK"/></td>
+		</tr>
+	</table>
+</form>
+
+<h2>Adjust other info</h2>
+<br>
+<form action="#" method="POST">
+	<table class="form_table">
+		<tr>
+			<td>Gender:</td>
+			<td><select name="gender">
+				<option value='no_change' >No Change</option>
+				<option value='male' >Male</option>
+				<option value='female' >Female</option>
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Bio:</td>
+			<td><textarea name="bio" ></textarea></td>
+		</tr>
+		<tr>
+			<td>Sexual prefrence:</td>
+			<td><select name="sex_pref">
+				<option value='no_change' >No Change</option>
+				<option value='hetrosexual' >Hetrosexual</option>
+				<option value='bisexual' >Bi-sexual</option>
+				<option value='homosexual' >Homosexual</option>
+				</select>
+			</td>
+		</tr>				
+		<tr>
+			<td>Interests:</td>
+			<td><input type="text" name="login" value=""/></td>
+		</tr>
+
+
+		<tr align="right">
+			<td><input type="submit" name="submit" value="OK"/></td>
+		</tr>
+	</table>
+</form>
+
+
+<h2> Upload an Image:</h2>
+
+<div id="upload-img">
+	{# <table class="form_table"> #}
+		<form method="POST"  enctype="multipart/form-data">  
+			<input type="file" name="image" accept="image/*" />  
+			<br /> 
+			<br>
+			<input type="submit" name="insert" value="Change profile"/>
+			<br>
+			<input type="submit" name="insert" value="Upload to gallery"/> 
+		</form> 
+	{# </table> #}
+</div>
+
+{% endblock %}

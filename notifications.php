@@ -4,6 +4,9 @@ require_once 'require.php';
 
 require_once 'logged_in.php';
 
-echo $twig->render('views.html.twig', array(
+
+// set notifications to 0
+echo $twig->render('notifications.html.twig', array(
 	'base' => $base_array
 ));
+?>

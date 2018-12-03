@@ -1,43 +1,40 @@
 {% extends 'base.html.twig' %}
 
-id
-user_name
-password
-email 
-first_name 
-last_name 
-confirmed 
-admin
-active 
-verification 
-num_notifications 
-profile_img_loc 
-bio 
-gender
-
-
 
 {% block body %}
 <div class="profile-header">
-	<h1>{{profile.user_name}}</h1>
-	<h2>{{profile.first_name}} {{profile.last_name}}</h2>
+	{# <h1>{{profile.user_name}}</h1> #}
+	<h1>{{profile.first_name}} {{profile.last_name}}</h1>
 	<img src="{{profile.profile_img_loc}}" id="profile-image" height="300px"> <!-- float left -->
 
 	<div id="personal-info">
-		<strong>Birthday</strong>{{profile.birthdate}}
+		<span><strong>Birthday:</strong>{{profile.birthdate}}</span>
 		<br>
-		<strong>Last online</strong>{{profile.birthdate}}		
+		<span><strong>Gender:</strong>{{profile.gender}}</span>
+		<br>
+		<span><strong>Sexual Prefrence:</strong>{{profile.sex_pref}}</span>
+		<br>
+		<span><strong>Last online:</strong>{{profile.last_online}}</span>
+		<br>
+		<span><strong>Tags:</strong>{{profile.last_online}}</span>
+		<br>
+		{#<span><strong>Last online:</strong>{{profile.last_online}}</span> #}
 		<br>
 	</div>
-
-
 </div>
+
 
 <h3>Bio</h3>
 
 <article>
-	User bio here
+	{{profile.bio}}
 </article>
+
+<div id="profile-imgs">
+	{% for source in profile_images %}
+		<img src="{{source}}" width="100px" />
+	{% endfor %}
+</div>
 
 
 {% endblock %}
