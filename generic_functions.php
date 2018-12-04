@@ -79,4 +79,21 @@ function server_url($server){
 	return ($host . $folder1);
 }
 
+function random_profile($uid, $pdo){
+	$query = "SELECT id FROM `users` 
+				LEFT JOIN blocked ON blocked.user_id=:id AND blocked.blocked_id=users.id
+				WHERE blocked.blocked_id IS NULL AND users.id<>:id
+				ORDER BY RAND()";
+
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['id' => $uid]);
+	$res = $stmt->fetchAll();
+
+	$ret_id = -1;
+	if (count($res) >= 1){
+		$ret_id = $res[0]['id'];
+	}
+
+	return ($ret_id);
+}
 ?>

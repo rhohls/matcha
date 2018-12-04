@@ -4,9 +4,14 @@
 {% block body %}
 <h1> Matcha</h1>
 
-<p> A place to connect people</p>
-<p> Login to get started</p>
-<br>
-<a href="login.php"><button >Login</button></a>
-
+{% if not base.loggedin %}
+	<p> A place to connect people</p>
+	<p> Login to get started</p>
+	<br>
+	<a href="login.php"><button >Login</button></a>
+{% else %}
+	<p> Go to a profile you are looking for or click below to go to a random profile</p>
+	<br>
+	<a href="profile.php?usr_id={{rand_id}}"><button >Random profile</button></a>
+{% endif %}
 {% endblock %}
