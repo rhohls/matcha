@@ -30,16 +30,18 @@ if ($_POST["submit"] == "OK")
 			alert("Passwords not secure enough: " . $pwd_error , $redirect);
 		}
 
+		$coords = getLocationIP();
 		$hashedpwd = hashPW($_POST["passwd"]);
 		$first_name = $_POST["first_name"];
 		$last_name = $_POST["last_name"];
 		$email = $_POST["email"];
 		$code = hash('md5', $login.uniqid());
 		// SQL stuff
-		$query = "INSERT INTO `users` (user_name, password, email, first_name, last_name, verification)
-					VALUES (:usr_name, :password, :email, :first, :last, :code)";
+		$query = "INSERT INTO `users` (user_name, password, email, first_name, last_name, verification, latitude, longitude)
+					VALUES (:usr_name, :password, :email, :first, :last, :code, :lat, :lon)";
 		$stmt = $pdo->prepare($query);
-		$stmt->execute(['usr_name' => $login, 'password' => $hashedpwd, 'email' => $email, 'first' => $first_name, 'last' => $last_name, 'code' => $code]); //use this for security
+		$stmt->execute(['usr_name' => $login, 'password' => $hashedpwd, 'email' => $email, 'first' => $first_name,
+						'last' => $last_name, 'code' => $code, 'lat' => $coords['lat'], 'lon' => $coords['long']]); //use this for security
 
 		// verification emaily
 		$to = $email;
@@ -60,6 +62,27 @@ if ($_POST["submit"] == "OK")
 		alert("Please don't leave any field blank", $redirect);
 }
 
+
+function getLocationIP(){
+	global $DB_LOC;
+	$location = array();
+
+	$ip = $_SERVER['REMOTE_ADDR'];
+
+	if ($ip == "127.0.0.1" ||
+			(substr_compare($ip, "10.", 0, 3) == 0)){
+
+		$location = $DB_LOC;
+	
+	}else{
+		$details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+
+		$loc = explode(",", $details->loc);
+		$location["lat"] = $loc[0];
+		$location["long"] = $loc[1];
+	}
+	return ($location);
+}
 
 echo $twig->render('register.html.twig', array(
 	'base' => $base_array
