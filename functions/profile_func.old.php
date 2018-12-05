@@ -1,7 +1,5 @@
 <?php
 
-require_once 'connect.php';
-
 function profileBlocked($profile_id, $uid, $pdo){
 	$query = "SELECT * FROM `blocked` WHERE user_id=:profile_id AND blocked_id=:visitor";
 	$stmt = $pdo->prepare($query);

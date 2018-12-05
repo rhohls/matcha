@@ -21,18 +21,9 @@
 			<td>New email adress:</td>
 			<td><input type="email" name="email" value=""/></td>
 		</tr>						
-		<tr>
-			<td>Notify on comment:</td>
-			<td><select name="notify">
-				<option value='no_change' >No Change</option>
-				<option value='yes' >Yes</option>
-				<option value='no' >No</option>
-				</select>
-			</td>
-		</tr>
 
 		<tr align="right">
-			<td><input type="submit" name="submit" value="OK"/></td>
+			<td><input type="submit" name="submit" value="Update account"/></td>
 		</tr>
 	</table>
 </form>
@@ -75,11 +66,19 @@
 		</tr>
 		<tr>
 			<td>Location:</td>
-			<td><input type="text" name="location" value=""/></td>
+			<td><button type="button" onclick='getLocation()'>Get coordinates</button></td>
+		</tr>
+		<tr>
+			<td>latitude:</td>
+			<td><input type="number" name="latitude" value="" id="lat" step="0.0001" min="-90" max="90"/></td>
+		</tr>
+		<tr>			
+			<td>longitude:</td>
+			<td><input type="number" name="longitude" value="" id="long" step="0.0001" min="-90" max="90"/></td>
 		</tr>
 
 		<tr align="right">
-			<td><input type="submit" name="submit" value="OK"/></td>
+			<td><input type="submit" name="submit" value="Update profile"/></td>
 		</tr>
 	</table>
 </form>

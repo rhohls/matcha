@@ -38,3 +38,19 @@ function deleteImage(img_id){
 		location.reload();
 	}
 }
+
+function getLocation(){
+	console.log("getting loca");
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        alert("Geolocation is not supported by this browser.");
+	}
+}
+
+function showPosition(position) {
+	console.log("setting pos");
+
+	document.getElementById("lat").value = (position.coords.latitude).toFixed(4);
+	document.getElementById("long").value = (position.coords.longitude).toFixed(4);
+}

@@ -40,7 +40,10 @@ try{
         gender VARCHAR(8) NOT NULL DEFAULT 'none',
         last_online DATE DEFAULT '1990-01-01',
         birthdate DATE DEFAULT '1990-01-01',
-        images VARCHAR(255)
+        images VARCHAR(255),
+        latitude FLOAT,
+        longitude FLOAT
+
     );";
     $pdo->query($user_table);
     // adding admin
