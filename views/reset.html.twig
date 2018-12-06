@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br>
+<form action="#" method="POST">
+	<table class="form_table">
+		<tr>
+			<td>Username:</td>
+			<td><input type="text" name="login" value=""/></td>
+		</tr>
+		<tr>
+			<td>Email:</td>
+			<td><input type="email" name="email" value=""/></td>
+		</tr>
+	</table>
+	<br>
+<table class="form_table">
+	<tr align="right">
+		<td>
+			<button type="submit" name="type" value="reset">Reset Password</button>
+			<button type="submit" name="type" value="resend">Resend verification email</button>
+		</td>
+	</tr>
+</table>
+</form>
+{% endblock %}

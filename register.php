@@ -49,11 +49,11 @@ if ($_POST["submit"] == "OK")
 		$headers = "From: noresponse@camagru.co.za";
 		$txt = "Dear $login
 
-		Thank you for registering to Camagru please go to the following link to activate your account:
+		Thank you for registering to Matcha please go to the following link to activate your account:
 		http://" . server_url($_SERVER) ."/verify.php?usr_name=$login&code=$code&verify=true
 
 		Kind Regards
-		Camagru";
+		Matcha";
 		mail($to,$subject,$txt,$headers);
 
 		alert("You have been registered! Please check your email", $index);

@@ -5,11 +5,19 @@ function userExist($pdo, $user_name){
 	$query = "SELECT user_name FROM `users` WHERE user_name=:user";
 	$stmt = $pdo->prepare($query);
 	$stmt->execute(['user' => $user_name]);
-	// print_r($stmt);
 	$result = $stmt->fetch();
-	// $result = ($pdo->query($stmt))->fetch();
 
-	// echo $result;
+	if ($result)
+		return true;
+	else
+		return false;
+}
+function userExist_id($pdo, $user_id){
+
+	$query = "SELECT user_name FROM `users` WHERE id=:user";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['user' => $user_id]);
+	$result = $stmt->fetch();
 
 	if ($result)
 		return true;

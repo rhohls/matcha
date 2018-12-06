@@ -8,7 +8,8 @@ $index = 'index.php';
 
 if (isset($_POST["submit"]) && $_POST["submit"] == "OK")
 {
-	if ($_POST["login"] !== "" && $_POST["passwd"] !== "")
+	if ((isset($_POST["login"]) && isset($_POST["passwd"])) && 
+			($_POST["login"] !== "" && $_POST["passwd"] !== ""))
 	{
 		$login = $_POST["login"];
 		$uid = -1;
@@ -40,8 +41,9 @@ if (isset($_POST["submit"]) && $_POST["submit"] == "OK")
 		}
 		alert("Something went wrong", 'index.php');
 	}
-	else{
-		alert("Please don't leave any field blank", $ref);
+	else
+	{
+		alert_info("Please don\'t leave any field blank");
 	}
 }
 

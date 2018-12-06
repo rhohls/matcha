@@ -55,7 +55,7 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 				You can change it by going to the \"My Account\" page.
 				
 				Kind Regards
-				Camagru";
+				Matcha";
 
 		mail($to,$subject,$txt,$headers);
 
