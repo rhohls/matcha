@@ -21,14 +21,19 @@ if ($profile_id != $uid){
 }
 
 if (isset($_POST['submit'])){
-	if ($_POST['submit'] == 'Like')
-		addLike($profile_id, $uid, $pdo);
-	else if ($_POST['submit'] == 'Un-like')
-		removeLike($profile_id, $uid, $pdo);
-	else if ($_POST['submit'] == 'Report Fake')
-		addFake($profile_id, $uid, $pdo);
-	else if ($_POST['submit'] == 'Block')
-		addBlocked($profile_id, $uid, $pdo);	
+	if (profileComplete()){
+		if ($_POST['submit'] == 'Like')
+			addLike($profile_id, $uid, $pdo);
+		else if ($_POST['submit'] == 'Un-like')
+			removeLike($profile_id, $uid, $pdo);
+		else if ($_POST['submit'] == 'Report Fake')
+			addFake($profile_id, $uid, $pdo);
+		else if ($_POST['submit'] == 'Block')
+			addBlocked($profile_id, $uid, $pdo);
+	}
+	else{
+		alert_info("You\'re profile is incomplete.\n Please complete it to do that action");
+	}
 }
 
 $query = "SELECT * FROM `users` WHERE id=$profile_id";
@@ -43,34 +48,10 @@ if (!$profile_info){
 	die();	
 }
 
-// $im = (serialize(array('./page_imgs/rand.png', './page_imgs/rand.png', './page_imgs/rand.png')));
-// $query = "UPDATE `users` SET images='$im' WHERE id=$profile_id";
-// $stmt = $pdo->prepare($query);
-// $stmt->execute();
-// var_dump($profile_info);
-
-
-
-// profileBlocked($id_tocheck, $id_of_request, $pdo)
-echo " to check: " .$profile_id ."requested from: ".$uid . "<br>";
-echo "res ";
-if (profileBlocked($profile_id, $uid, $pdo))
-	echo "true";
-else
-	echo "false";
-echo " <br>";
-
-
 echo $twig->render('profile.html.twig', array(
 	'base'		=>	$base_array,
 	'profile'	=>	$profile_info,
 	'profile_images' => $profile_images
 ));
 
-
-
-
 ?>
-
-
-

@@ -73,7 +73,8 @@ try{
         user_from INT NOT NULL,
         user_to INT NOT NULL,
         liked INT DEFAULT 0,
-        viewed INT DEFAULT 0
+        viewed INT DEFAULT 0,
+        connected INT DEFAULT 0
     );";
     $pdo->query($img_table);
 

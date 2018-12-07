@@ -32,8 +32,8 @@
 			<div class="menu_bar">
 				<ul>
 					<li><a href="index.php">Home</a></li>
-					<li><a href="#">???</a></li>
-					<li><a href="#">!!!</a></li>
+					<li><a href="#">Search</a></li>
+					<li><a href="chat.php">Chat</a></li>
 
 					{% if base.loggedin %}
 						<li><a href='adjust.php'>My Account</a></li>
@@ -78,6 +78,7 @@
 					{% if base.loggedin %}
 						<li><a href="profile.php?usr_id={{base.uid}}">My Profile</a></li>
 						<li><a href="notifications.php">Views and likes</a></li>
+						<li><a href="chat.php">Chats</a></li>
 					{% else %}
 						<a>Log in to see fancy links</a>
 					{% endif %}

@@ -28,8 +28,6 @@ function make_header_array(){
 
 
 
-
-
 $base_array = make_header_array();
 
 

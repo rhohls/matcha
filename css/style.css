@@ -274,7 +274,11 @@ h1{
 	margin: auto;
 }
 
-
+#chat_users{
+	background-color: lightblue;
+    max-height: 800px;
+    overflow: auto;
+}
 
 
 @media only screen and (max-width: 600px) {
