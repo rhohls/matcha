@@ -83,7 +83,8 @@ try{
     (
         from_id INT NOT NULL,
         to_id INT NOT NULL,
-        comment TEXT NOT NULL
+        comment TEXT NOT NULL,
+        sent TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
     );";
     $pdo->query($comment_table);
 

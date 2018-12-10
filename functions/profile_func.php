@@ -10,6 +10,11 @@ function checkConnection($profile_id, $uid, $pdo){
 	// for chat
 }
 
+function profileComplete($uid, $pdo){
+	//
+	return (true);
+}
+
 // This functions works, dont read to much into the variable names
 function profileBlocked($id_tocheck, $id_of_request, $pdo){
 	$query = "SELECT * FROM `blocked` WHERE user_id=$id_of_request AND blocked_id=$id_tocheck";

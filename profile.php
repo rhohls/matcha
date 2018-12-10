@@ -21,7 +21,7 @@ if ($profile_id != $uid){
 }
 
 if (isset($_POST['submit'])){
-	if (profileComplete()){
+	if (profileComplete($uid, $pdo)){
 		if ($_POST['submit'] == 'Like')
 			addLike($profile_id, $uid, $pdo);
 		else if ($_POST['submit'] == 'Un-like')

@@ -90,7 +90,9 @@ function server_url($server){
 function random_profile($uid, $pdo){
 	$query = "SELECT id FROM `users` 
 				LEFT JOIN blocked ON blocked.user_id=:id AND blocked.blocked_id=users.id
-				WHERE blocked.blocked_id IS NULL AND users.id<>:id
+				WHERE blocked.blocked_id IS NULL 
+				AND users.id<>:id
+				AND users.id<>1  /* no admin */
 				ORDER BY RAND()";
 
 	$stmt = $pdo->prepare($query);

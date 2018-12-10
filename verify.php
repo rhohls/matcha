@@ -49,7 +49,7 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 
 		$to = $user['email'];
 		$subject = "New Password";
-		$headers = "From: accounts@camagru.co.za";
+		$headers = "From: accounts@matcha.co.za";
 		$txt = "Your new password is: ". $random_pw . "
 		
 				You can change it by going to the \"My Account\" page.

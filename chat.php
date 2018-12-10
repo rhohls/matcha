@@ -5,7 +5,7 @@ require_once 'require.php';
 
 require_once 'logged_in.php';
 
-$profile_id = $_GET['usr_id'];
+$partner = $_GET['usr_id'];
 $uid = $_SESSION['uid'];
 
 //  -----
@@ -13,11 +13,21 @@ $uid = $_SESSION['uid'];
 //  -----
 if (!isset($_GET['usr_id'])){
 
+
+	$query =   "SELECT user_to, first_name, last_name FROM `view_like`
+				JOIN users ON view_like.user_to=users.id
+				WHERE connected=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
 	
-	
-	
-	
-	
+	$all_con_users = $stmt->fetchAll();
+
+	// var_dump($all_con_users);
+
+
+
+
+
 	echo $twig->render('chat_list.html.twig', array(
 		'base'			=>	$base_array,
 		'connections'	=>	$all_con_users
@@ -31,11 +41,14 @@ if (!isset($_GET['usr_id'])){
 else{
 
 
-	$query = "SELECT * FROM `users` WHERE id=$profile_id";
+	$query = "SELECT * FROM `messages` WHERE from_id=:id OR to_id=:id
+				ORDER BY sent";
 	$stmt = $pdo->prepare($query);
-	$stmt->execute();
+	$stmt->execute(["id" => $uid]);
 	
-	$profile_info = $stmt->fetch();
+	$all_messages = $stmt->fetchAll();
+
+	var_dump($all_messages);
 
 
 
@@ -52,7 +65,7 @@ else{
 
 
 
-// $query = "SELECT * FROM `users` WHERE id=$profile_id";
+// $query = "SELECT * FROM `users` WHERE id=$partner";
 // $stmt = $pdo->prepare($query);
 // $stmt->execute();
 

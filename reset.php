@@ -34,7 +34,7 @@ if (isset($_POST["type"])){
 		if ($_POST["type"] == 'resend'){
 			$to = $input_email;
 			$subject = "My subject";
-			$headers = "From: noresponse@camagru.co.za";
+			$headers = "From: noresponse@matcha.co.za";
 			$txt = "Dear $login
 			
 			Thank you for registering to Matcha please go to the following link to activate your account:
@@ -49,7 +49,7 @@ if (isset($_POST["type"])){
 		elseif ($_POST["type"] == 'reset' && $user['confirmed'] == 1){
 			$to = $input_email;
 			$subject = "Password Reset";
-			$headers = "From: noresponse@camagru.co.za";
+			$headers = "From: noresponse@matcha.co.za";
 			$txt = "Dear $login
 			
 			You have attempted to reset your password. To do this goto the following link:

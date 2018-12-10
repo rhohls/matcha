@@ -6,6 +6,8 @@
 	--dblue: rgb(226, 71, 231);
 	--lblue: rgb(210, 150, 238);
 	--vdblue: rgb(174, 52, 255);
+	--paleblue: rgb(255, 133, 229);
+	--vpaleblue:rgb(233, 190, 223);
 }
 
 body {
@@ -274,10 +276,39 @@ h1{
 	margin: auto;
 }
 
-#chat_users{
-	background-color: lightblue;
+#chat{
+	background-color: var(--paleblue);
     max-height: 800px;
-    overflow: auto;
+	overflow: auto;
+	width: 80%;
+	margin: auto;
+	border-radius: 7px;
+
+}
+
+.sent span, .receive span{
+	background-color: var(--vpaleblue);
+	border-radius: 7px;
+	padding: 5px;
+}
+
+
+.sent p, .receive p{
+
+
+.sent p{
+	border-radius: 3px;
+	text-align: right;
+	width: 80%;
+	float: right;
+	padding: 10px;
+}
+
+.receive p{
+	border-radius: 3px;
+	text-align: left;
+	width: 80%;
+	float: left;
 }
 
 

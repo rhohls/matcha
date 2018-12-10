@@ -6,8 +6,8 @@
 <div id="chat_users">
 	{% for user in connections %}
 
-
-
+		<a href="chat.php?usr_id={{user.user_to}}">{{user.first_name}} {{user.last_name}}</a>
+		<br>
 	{% endfor %}
 </div>
 

@@ -46,7 +46,7 @@ if ($_POST["submit"] == "OK")
 		// verification emaily
 		$to = $email;
 		$subject = "Registration";
-		$headers = "From: noresponse@camagru.co.za";
+		$headers = "From: noresponse@matcha.co.za";
 		$txt = "Dear $login
 
 		Thank you for registering to Matcha please go to the following link to activate your account:
