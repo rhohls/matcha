@@ -106,4 +106,6 @@ function random_profile($uid, $pdo){
 
 	return ($ret_id);
 }
+
+// function
 ?>

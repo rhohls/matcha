@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/style.css">
 	<title>Matcha</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="main_wrapper">
@@ -37,9 +38,11 @@
 
 					{% if base.loggedin %}
 						<li><a href='adjust.php'>My Account</a></li>
-						<li><a href='notifications.php'>
+						<li><a href='notifications.php' id="notifications">
 							Notifications({{base.notifications}})
 						</a></li>
+
+						<script type='text/javascript' src='javascript/header.js'></script>
 					{% else %}
 						<li><a href='register.php'>Register</a></li>
 						<li><a href='login.php'>Login</a></li>

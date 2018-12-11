@@ -3,7 +3,9 @@
 require_once "generic_functions.php";
 
 function sendNotification($profile_id, $uid, $pdo){
-	// TO-DO
+	$query = "UPDATE `users` SET num_notifications =  num_notifications + 1 WHERE id=$profile_id";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
 }
 
 function checkConnection($profile_id, $uid, $pdo){
@@ -15,7 +17,6 @@ function checkConnection($profile_id, $uid, $pdo){
 
 	$query = "SELECT * FROM `view_like` WHERE user_to=$uid AND user_from=$profile_id AND liked=1";
 	$stmt = $pdo->prepare($query);
-	echo "from-- " . $query . "<br>";
 	$stmt->execute();
 
 	$from = $stmt->fetch();
@@ -42,10 +43,11 @@ function profileComplete($uid, $pdo){
 
 	$res = $stmt->fetch();
 
-	if ($res)
-		return (true);
-	else
-		return (false);
+	return(true);
+	// if ($res)
+	// 	return (true);
+	// else
+	// 	return (false);
 }
 
 // This functions works, dont read to much into the variable names
@@ -78,7 +80,7 @@ function addLike($profile_id, $uid, $pdo){
 	$liked = $stmt->fetchAll();
 
 	if (!$liked){
-		$query = "INSERT INTO `view_like` ('user_to', 'user_from', 'liked') VALUES ($profile_id, $uid, 1)";
+		$query = "INSERT INTO `view_like` (`user_to`, `user_from`, `liked`) VALUES ($profile_id, $uid, 1)";
 		$stmt = $pdo->prepare($query);
 		$stmt->execute();
 

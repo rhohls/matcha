@@ -1,0 +1,13 @@
+{% for message in messages %}
+
+	{% if message.from_id == base.uid %}
+	<div class="sent">
+		<p><span>{{message.comment}}</span></p>
+	</div>
+	{% else %}
+	<div class="receive">
+		<p><span>{{message.comment}}</span></p>
+	</div>
+	{% endif %}
+
+{% endfor %}

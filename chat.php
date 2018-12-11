@@ -68,7 +68,8 @@ else{
 
 	echo $twig->render('chat.html.twig', array(
 		'base'		=>	$base_array,
-		'messages'	=>	$all_messages
+		'messages'	=>	$all_messages,
+		'partner'	=>	$partner
 	));
 }
 

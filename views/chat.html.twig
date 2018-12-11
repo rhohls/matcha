@@ -2,28 +2,19 @@
 
 {% block body %}
 
+
+<script src="./javascript/chat.js"></script>
+
 <h1>Messages</h1>
 <div id="chat">
-	{% for message in messages %}
 
-		{% if message.from_id == base.uid %}
-		<div class="sent">
-			<p><span>{{message.comment}}</span></p>
-		</div>
-		{% else %}
-		<div class="receive">
-			<p><span>{{message.comment}}</span></p>
-		</div>
-		{% endif %}
+	<div id="chat-window">
+		{% include 'chat_window.html.twig'%}
+	</div>
 
-	{% endfor %}
-
-	
 	<div id="text" align="right">
-		{# <p>New Message</p>
-		<hr> #}
 		<form action="#" method="POST">
-			<textarea name="message" ></textarea>
+			<textarea name="message" style="height: 110px; width: 240px;"></textarea>
 			<br>
 			<input type="submit" name="submit" value="Send"/>
 		</form>

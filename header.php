@@ -1,15 +1,24 @@
 <?php 
 session_start();
-function getNotifications($uid){
-	return (7);
+require_once 'connect.php';
+
+function getNotifications($uid, $pdo){
+
+	$query = "SELECT num_notifications FROM `users` WHERE id=$uid";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$res = $stmt->fetch();
+
+	return ($res['num_notifications']);
 }
 
-function make_header_array(){
+function make_header_array($pdo){
 	if (isset($_SESSION['uid'])){
 		$uid = $_SESSION['uid'];
 		$username = $_SESSION['user_name'];
 		$loggedin = true;
-		$notifications = getNotifications($uid);
+		$notifications = getNotifications($uid, $pdo);
 	}
 	else{
 		$uid = -1;
@@ -28,7 +37,7 @@ function make_header_array(){
 
 
 
-$base_array = make_header_array();
+$base_array = make_header_array($pdo);
 
 
 

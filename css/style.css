@@ -278,12 +278,16 @@ h1{
 
 #chat{
 	background-color: var(--paleblue);
-    max-height: 800px;
-	overflow: auto;
 	width: 80%;
 	margin: auto;
 	border-radius: 7px;
+	
+}
 
+#chat-window{
+	max-height: 650px;
+	margin-bottom: 30px;
+	overflow: auto;
 }
 
 .sent span, .receive span{

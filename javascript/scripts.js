@@ -54,3 +54,5 @@ function showPosition(position) {
 	document.getElementById("lat").value = (position.coords.latitude).toFixed(4);
 	document.getElementById("long").value = (position.coords.longitude).toFixed(4);
 }
+
+
