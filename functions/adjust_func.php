@@ -1,9 +1,23 @@
 <?php
 
-function accountCompleted(){
-	//check all info in account is there
-	// set sql complete variable
-	// alert user what information is needed
+function accountCompleted($pdo, $uid){
+	$query = "SELECT * FROM `users` WHERE id=$uid";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$user = $stmt->fetch();
+	var_dump($user);
+
+	if ($user['profile_img_loc'] != './page_imgs/blank_profile_picture.png' &&
+		$user['bio'] != '' &&
+		$user['gender'] != 'none' &&
+		$user['birthdate'] != '1888-01-01'
+		){
+			$query = "UPDATE `users` SET comlete=1 WHERE id=:uid;";
+
+			$stmt = $pdo->prepare($query);
+			$stmt->execute(['uid' => $uid]);
+		}
 }
 
 function sqlUpdate($adjust_info, $pdo, $error, $uid){
@@ -21,7 +35,7 @@ function sqlUpdate($adjust_info, $pdo, $error, $uid){
 			$_SESSION['user_name'] = trim($adjust_info['user_name'], '\'');
 		alert_info('The following account info has been changed:\n'. implode(", ", $changed));
 
-		accountCompleted();
+		accountCompleted($pdo, $uid);
 
 	 }
 	 else if ($error != 1){

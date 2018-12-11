@@ -294,20 +294,19 @@ h1{
 
 
 .sent p, .receive p{
-
-
-.sent p{
 	border-radius: 3px;
-	text-align: right;
 	width: 80%;
-	float: right;
 	padding: 10px;
 }
 
+
+.sent p{
+	text-align: right;
+	float: right;
+}
+
 .receive p{
-	border-radius: 3px;
 	text-align: left;
-	width: 80%;
 	float: left;
 }
 

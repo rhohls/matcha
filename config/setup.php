@@ -38,8 +38,8 @@ try{
         bio TEXT,
         sex_pref VARCHAR(12) NOT NULL DEFAULT 'Bisexual',
         gender VARCHAR(8) NOT NULL DEFAULT 'none',
-        last_online DATE DEFAULT '1990-01-01',
-        birthdate DATE DEFAULT '1990-01-01',
+        last_online DATE DEFAULT '1888-01-01',
+        birthdate DATE DEFAULT '1888-01-01',
         images VARCHAR(255),
         latitude FLOAT,
         longitude FLOAT

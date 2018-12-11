@@ -7,12 +7,45 @@ function sendNotification($profile_id, $uid, $pdo){
 }
 
 function checkConnection($profile_id, $uid, $pdo){
-	// for chat
+	$query = "SELECT * FROM `view_like` WHERE user_to=$profile_id AND user_from=$uid AND liked=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$to = $stmt->fetch();
+
+	$query = "SELECT * FROM `view_like` WHERE user_to=$uid AND user_from=$profile_id AND liked=1";
+	$stmt = $pdo->prepare($query);
+	echo "from-- " . $query . "<br>";
+	$stmt->execute();
+
+	$from = $stmt->fetch();
+
+	// put above into single statement
+
+	if ($to && $from){
+		$query = "UPDATE `view_like` SET connected=1 WHERE (user_to=$profile_id AND user_from=$uid) OR (user_to=$uid AND user_from=$profile_id);";
+		$stmt = $pdo->prepare($query);
+		$stmt->execute();
+	}
+}
+
+function removeConnection($profile_id, $uid, $pdo){
+	$query = "UPDATE `view_like` SET connected=0 WHERE (user_to=$profile_id AND user_from=$uid) OR (user_to=$uid AND user_from=$profile_id);";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
 }
 
 function profileComplete($uid, $pdo){
-	//
-	return (true);
+	$query = "SELECT * FROM `users` WHERE id=$uid AND complete=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$res = $stmt->fetch();
+	
+	if ($res)
+		return (true);
+	else
+		return (false);
 }
 
 // This functions works, dont read to much into the variable names
@@ -33,6 +66,8 @@ function removeLike($profile_id, $uid, $pdo){
 	$query = "UPDATE `view_like` SET liked=0 WHERE user_to=$profile_id AND user_from=$uid ;";
 	$stmt = $pdo->prepare($query);
 	$stmt->execute();
+
+	removeConnection($profile_id, $uid, $pdo);
 }
 
 function addLike($profile_id, $uid, $pdo){

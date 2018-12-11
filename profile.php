@@ -32,7 +32,7 @@ if (isset($_POST['submit'])){
 			addBlocked($profile_id, $uid, $pdo);
 	}
 	else{
-		alert_info("You\'re profile is incomplete.\n Please complete it to do that action");
+		alert_info("Your profile is incomplete. Please complete it to do that action");
 	}
 }
 

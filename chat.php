@@ -13,20 +13,14 @@ $uid = $_SESSION['uid'];
 //  -----
 if (!isset($_GET['usr_id'])){
 
-
 	$query =   "SELECT user_to, first_name, last_name FROM `view_like`
 				JOIN users ON view_like.user_to=users.id
-				WHERE connected=1";
+				WHERE connected=1
+				AND user_to=:id";
 	$stmt = $pdo->prepare($query);
-	$stmt->execute();
+	$stmt->execute(["id" => $uid]);
 	
 	$all_con_users = $stmt->fetchAll();
-
-	// var_dump($all_con_users);
-
-
-
-
 
 	echo $twig->render('chat_list.html.twig', array(
 		'base'			=>	$base_array,
@@ -40,6 +34,7 @@ if (!isset($_GET['usr_id'])){
 //  -----
 else{
 
+	check connected
 
 	$query = "SELECT * FROM `messages` WHERE from_id=:id OR to_id=:id
 				ORDER BY sent";
@@ -47,10 +42,6 @@ else{
 	$stmt->execute(["id" => $uid]);
 	
 	$all_messages = $stmt->fetchAll();
-
-	var_dump($all_messages);
-
-
 
 	echo $twig->render('chat.html.twig', array(
 		'base'		=>	$base_array,
