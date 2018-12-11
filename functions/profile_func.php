@@ -41,7 +41,7 @@ function profileComplete($uid, $pdo){
 	$stmt->execute();
 
 	$res = $stmt->fetch();
-	
+
 	if ($res)
 		return (true);
 	else
