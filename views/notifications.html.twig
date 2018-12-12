@@ -1,15 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h2>People who viewed your profile</h2>
+<h1>Notifications</h1>
 
+{# messages #}
+<h2>People who messaged you</h2>
 <ul>
-	<li><a href="profile.php?usr_id=0">First last</a></li>
+	{% for user in messages %}
+		<li><a href="profile.php?usr_id={{user.from_id}}">{{user.first_name}} {{user.last_name}}</a>
+	{% endfor %}
+</ul>
+
+{# views #}
+<h2>People who viewed your profile</h2>
+<ul>
+	{% for user in views %}
+		<li><a href="profile.php?usr_id={{user.user_from}}">{{user.first_name}} {{user.last_name}}</a>
+	{% endfor %}
 </ul>
 	
+{# likes #}
 <h2>People who liked your profile</h2>
-
 <ul>
-	<li><a href="profile.php?usr_id=0">First last</a></li>
+	{% for user in likes %}
+		<li><a href="profile.php?usr_id={{user.user_from}}">{{user.first_name}} {{user.last_name}}</a>
+	{% endfor %}
 </ul>
+
+{# conn #}
+<h2>People who connected with you</h2>
+<ul>
+	{% for user in connect %}
+		<li><a href="profile.php?usr_id={{user.user_from}}">{{user.first_name}} {{user.last_name}}</a>
+	{% endfor %}
+</ul>
+
 {% endblock %}
