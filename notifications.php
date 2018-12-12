@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'require.php';
+require_once 'connect.php';
 
 require_once 'logged_in.php';
 

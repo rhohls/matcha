@@ -1,6 +1,9 @@
 <?php
 function setLastOnline($uid, $pdo){
-	//
+	$query = "UPDATE users set last_online=CURRENT_TIMESTAMP WHERE id=:id";
+
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['id' => $uid]);
 }
 
 session_start();

@@ -48,10 +48,15 @@ if (!$profile_info){
 	die();	
 }
 
+$online = isOnline($profile_id, $pdo);
+$rating = fameRating($profile_id, $pdo);
+
 echo $twig->render('profile.html.twig', array(
 	'base'		=>	$base_array,
 	'profile'	=>	$profile_info,
-	'profile_images' => $profile_images
+	'profile_images' => $profile_images,
+	'online'	=>	$online,
+	'rating'	=>	$rating
 ));
 
 ?>

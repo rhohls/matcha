@@ -133,4 +133,63 @@ function addFake($profile_id, $uid, $pdo){
 		$stmt->execute();
 	}
 }
+
+function isOnline($profile_id, $pdo){
+	$query = "SELECT * FROM `users` WHERE last_online >= DATE_SUB(NOW(),INTERVAL 5 MINUTE) AND id=$profile_id";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$res = $stmt->fetch();
+
+	if ($res)
+		return (true);
+	else
+		return (false);
+}
+
+
+// each message to 1 pt
+// view 10pt
+// like 50pt
+// block -20pt
+
+function fameRating($uid, $pdo){
+
+	$total_points = 0;
+
+	// message points
+	$query = "SELECT * FROM `messages` WHERE to_id=:id";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['id' => $uid]);
+	$res = $stmt->fetchAll();
+
+	$total_points += count($res);
+	
+	// views
+	$query = "SELECT * FROM `view_like` WHERE user_to=:id AND viewed=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['id' => $uid]);
+	$res = $stmt->fetchAll();
+
+	$total_points += (count($res) * 10);
+	
+	// likes
+	$query = "SELECT * FROM `view_like` WHERE user_to=:id AND liked=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['id' => $uid]);
+	$res = $stmt->fetchAll();
+
+	$total_points += (count($res) * 50);
+
+	// block
+	$query = "SELECT * FROM `blocked` WHERE blocked_id=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(['id' => $uid]);
+	$res = $stmt->fetchAll();
+
+	$total_points -= (count($res) * 20);
+
+	return ($total_points);
+}
+
 ?>
