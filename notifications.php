@@ -17,15 +17,15 @@ require_once 'header.php'; //this updates the base array from require.php
 
 // $query = "SELECT ID, FirstName, LastName FROM table GROUP BY(FirstName) LIMIT 10";
 
-// New messages
-$query =   "SELECT DISTINCT from_id, first_name, last_name FROM `messages`
-			JOIN users ON from_id=users.id
-			WHERE to_id=:id
+// Likes
+$query =   "SELECT DISTINCT user_from, first_name, last_name FROM `view_like`
+			JOIN users ON user_from=users.id
+			WHERE user_to=:id AND liked=1
 			LIMIT 10";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['id' => $uid]);
 	
-$messages = $stmt->fetchAll();
+$likes = $stmt->fetchAll();
 
 // Views
 $query =   "SELECT DISTINCT user_from, first_name, last_name FROM `view_like`
@@ -37,15 +37,15 @@ $stmt->execute(['id' => $uid]);
 	
 $views = $stmt->fetchAll();
 
-// Likes
-$query =   "SELECT DISTINCT user_from, first_name, last_name FROM `view_like`
-			JOIN users ON user_from=users.id
-			WHERE user_to=:id AND liked=1
+// New messages
+$query =   "SELECT DISTINCT from_id, first_name, last_name FROM `messages`
+			JOIN users ON from_id=users.id
+			WHERE to_id=:id
 			LIMIT 10";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['id' => $uid]);
 	
-$likes = $stmt->fetchAll();
+$messages = $stmt->fetchAll();
 
 // connections
 $query =   "SELECT DISTINCT user_from, first_name, last_name FROM `view_like`
@@ -56,7 +56,6 @@ $stmt = $pdo->prepare($query);
 $stmt->execute(['id' => $uid]);
 	
 $connects = $stmt->fetchAll();
-
 
 echo $twig->render('notifications.html.twig', array(
 	'messages' => $messages,
