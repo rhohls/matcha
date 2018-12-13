@@ -6,7 +6,6 @@ function accountCompleted($pdo, $uid){
 	$stmt->execute();
 
 	$user = $stmt->fetch();
-	var_dump($user);
 
 	if ($user['profile_img_loc'] != './page_imgs/blank_profile_picture.png' &&
 		$user['bio'] != '' &&
@@ -22,7 +21,6 @@ function accountCompleted($pdo, $uid){
 
 function sqlUpdate($adjust_info, $pdo, $error, $uid){
 	// Sql update
-	var_dump($adjust_info);
 	$adjust_str =  urldecode(http_build_query($adjust_info,'\'',', '));
  	if ($adjust_str != "" && $error == 0){
 		$query = "UPDATE `users` SET $adjust_str WHERE id=:uid;";
@@ -41,4 +39,14 @@ function sqlUpdate($adjust_info, $pdo, $error, $uid){
 	 else if ($error != 1){
 		alert_info('Please enter information to change');
 	 }
+}
+
+
+function arrayOldImages($pdo, $uid){
+	$query = "SELECT * FROM `users` WHERE id=$uid";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$profile_info = $stmt->fetch();
+	return (unserialize($profile_info['images']));
 }

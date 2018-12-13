@@ -87,16 +87,14 @@
 <h2> Upload an Image:</h2>
 
 <div id="upload-img">
-	{# <table class="form_table"> #}
-		<form method="POST"  enctype="multipart/form-data">  
-			<input type="file" name="image" accept="image/*" />  
-			<br /> 
-			<br>
-			<input type="submit" name="insert" value="Change profile"/>
-			<br>
-			<input type="submit" name="insert" value="Upload to gallery"/> 
-		</form> 
-	{# </table> #}
+	<form method="POST"  enctype="multipart/form-data">  
+		<input type="file" name="image" accept="image/*" />  
+		<br /> 
+		<br>
+		<input type="submit" name="insert" value="Change profile picture"/>
+		<br>
+		<input type="submit" name="insert" value="Upload to gallery"/> 
+	</form> 
 </div>
 
 {% endblock %}

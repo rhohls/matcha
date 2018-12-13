@@ -4,6 +4,8 @@ require_once 'require.php';
 
 require_once 'logged_in.php';
 
+// TO-DO html user you chatting with
+
 function isConnected($pdo, $uid, $partner){
 	$query =   "SELECT * FROM `view_like` WHERE connected=1	AND user_to=:id AND user_from=:id2";
 	$stmt = $pdo->prepare($query);
@@ -22,11 +24,11 @@ $uid = $_SESSION['uid'];
 
 if (isset($_POST['submit']) && $_POST['submit'] == 'Send'){
 	$message = sanitize($_POST['message']);
-	// $query = "INSERT INTO `messages` ('from_id', 'to_id', 'comment', 'sent') VALUES (:uid, :partner, :message, CURRENT_TIMESTAMP);";
 	$query = "INSERT INTO `messages` (`from_id`, `to_id`, `comment`, `sent`) VALUES (:uid, :partner, :message, CURRENT_TIMESTAMP);";
 	$stmt = $pdo->prepare($query);
-	var_dump($stmt);
 	$stmt->execute(['message' => $message, 'uid' => $uid, 'partner' => $partner]);
+
+	// TO-DO send notification
 }
 
 

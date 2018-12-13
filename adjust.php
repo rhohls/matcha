@@ -50,7 +50,11 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "Update account"))
 	sqlUpdate($adjust_info, $pdo, $error, $uid);
 }
 
-	// OTHER ACCOUNT INFO
+
+// TO-DO birthdate (check all)
+
+
+// Other account info
 if (isset($_POST["submit"]) && ($_POST["submit"] == "Update profile"))
 {
 
@@ -106,11 +110,14 @@ if(isset($_POST["insert"]))
 		
 		alert_info("Please choose a file to upload");
 
-		if(isset($_POST["Change profile"])){
+		if($_POST["insert"] = "Change profile picture"){
 			$query = "UPDATE `users` SET (profile_img) VALUES (:img_loc) WHERE id=:uid;";
 			
 			$stmt = $pdo->prepare($query);
 			$stmt->execute(["uid" => $uid, "img_loc" => $store_location]); 
+		}
+		else {
+			
 		}
 	}
 	else{

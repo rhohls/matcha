@@ -30,6 +30,7 @@ if (isset($_POST['submit'])){
 			addFake($profile_id, $uid, $pdo);
 		else if ($_POST['submit'] == 'Block')
 			addBlocked($profile_id, $uid, $pdo);
+			// TO-DO redirect to index
 	}
 	else{
 		alert_info("Your profile is incomplete. Please complete it to do that action");
@@ -50,12 +51,12 @@ if (!$profile_info){
 
 $online = isOnline($profile_id, $pdo);
 $rating = fameRating($profile_id, $pdo);
-
+// TO-DO remove lat/long from profile page
 echo $twig->render('profile.html.twig', array(
 	'base'		=>	$base_array,
 	'profile'	=>	$profile_info,
 	'profile_images' => $profile_images,
-	'online'	=>	$online,
+	'online'	=>	$online, 
 	'rating'	=>	$rating
 ));
 
