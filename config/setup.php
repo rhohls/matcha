@@ -43,7 +43,8 @@ try{
         images VARCHAR(255),
         latitude FLOAT,
         longitude FLOAT,
-        fame INT NOT NULL DEFAULT 0
+        fame INT NOT NULL DEFAULT 0,
+        complete INT NOT NULL DEFAULT 0
 
     );";
     $pdo->query($user_table);

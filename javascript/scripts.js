@@ -40,16 +40,18 @@ function deleteImage(img_id){
 }
 
 function getLocation(){
-	console.log("getting loca");
+	console.log("getting locaion");
 	if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+		navigator.geolocation.getCurrentPosition(showPosition);
+		console.log("called");
+		
     } else { 
         alert("Geolocation is not supported by this browser.");
 	}
 }
 
 function showPosition(position) {
-	console.log("setting pos");
+	console.log("setting pos"); 
 
 	document.getElementById("lat").value = (position.coords.latitude).toFixed(4);
 	document.getElementById("long").value = (position.coords.longitude).toFixed(4);
