@@ -28,9 +28,12 @@ if (isset($_POST['submit'])){
 			removeLike($profile_id, $uid, $pdo);
 		else if ($_POST['submit'] == 'Report Fake')
 			addFake($profile_id, $uid, $pdo);
-		else if ($_POST['submit'] == 'Block')
+		else if ($_POST['submit'] == 'Block'){
 			addBlocked($profile_id, $uid, $pdo);
-			// TO-DO redirect to index
+		}
+		// check line 35 works
+		alert("Submission captured", "profile.php?usr_id=$profile_id"); 
+		
 	}
 	else{
 		alert_info("Your profile is incomplete. Please complete it to do that action");
@@ -51,7 +54,6 @@ if (!$profile_info){
 
 $online = isOnline($profile_id, $pdo);
 $rating = fameRating($profile_id, $pdo);
-// TO-DO remove lat/long from profile page
 echo $twig->render('profile.html.twig', array(
 	'base'		=>	$base_array,
 	'profile'	=>	$profile_info,

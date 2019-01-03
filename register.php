@@ -47,12 +47,11 @@ if ($_POST["submit"] == "OK")
 		$to = $email;
 		$subject = "Registration";
 		$headers = "From: noresponse@matcha.co.za";
-		// $login_link = sanitize($login);  
-		// TO-DO  login link for email with spaces/special char (use uid?)
+		$login_link = urlencode(sanitize($login));
 		$txt = "Dear $login
 
 		Thank you for registering to Matcha please go to the following link to activate your account:
-		http://" . server_url($_SERVER) ."/verify.php?usr_name=$   login_link&code=$code&verify=true
+		http://" . server_url($_SERVER) ."/verify.php?usr_name=$login_link&code=$code&verify=true
 
 		Kind Regards
 		Matcha";

@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'require.php';
-
 require_once 'logged_in.php';
 
 // TO-DO html user you chatting with
@@ -28,9 +27,10 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Send'){
 	$stmt = $pdo->prepare($query);
 	$stmt->execute(['message' => $message, 'uid' => $uid, 'partner' => $partner]);
 
-	// TO-DO send notification
-}
+	// TO-DO send notification --check if shows up on notification page
 
+	sendNotification($partner, $uid, $pdo);
+}
 
 //  -----
 // If no chat specified
@@ -51,7 +51,6 @@ if (!isset($_GET['usr_id'])){
 		'connections'	=>	$all_con_users
 	));
 } 
-
 
 //  -----
 // specific user for chat

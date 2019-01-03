@@ -33,13 +33,15 @@ if (isset($_POST["type"])){
 
 		if ($_POST["type"] == 'resend'){
 			$to = $input_email;
-			$subject = "My subject";
+			$subject = "Verification";
 			$headers = "From: noresponse@matcha.co.za";
+			$login_link = urlencode(sanitize($login));
+
 			$txt = "Dear $login
-			
+	
 			Thank you for registering to Matcha please go to the following link to activate your account:
-			http://" . server_url($_SERVER) ."/verify.php?usr_name=$login&code=$code&verify=true
-			
+			http://" . server_url($_SERVER) ."/verify.php?usr_name=$login_link&code=$code&verify=true
+	
 			Kind Regards
 			Matcha";
 
@@ -50,10 +52,12 @@ if (isset($_POST["type"])){
 			$to = $input_email;
 			$subject = "Password Reset";
 			$headers = "From: noresponse@matcha.co.za";
+			$login_link = urlencode(sanitize($login));
+
 			$txt = "Dear $login
 			
 			You have attempted to reset your password. To do this goto the following link:
-			http://" . server_url($_SERVER) ."/verify.php?usr_name=$login&code=$code&reset_pw=true
+			http://" . server_url($_SERVER) ."/verify.php?usr_name=$login_link&code=$code&reset_pw=true
 			
 			Kind Regards
 			Matcha";
