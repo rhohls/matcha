@@ -1,5 +1,19 @@
 <?php
 
+function fetchMessages($pdo, $uid, $partner){
+	$query = "	SELECT * FROM `messages` WHERE 
+	from_id=:partner AND to_id=:uid OR
+	from_id=:uid AND to_id=:partner
+	ORDER BY sent";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["uid" => $uid, "partner" => $partner]);
+
+	$all_messages = $stmt->fetchAll();
+
+	return ($all_messages);
+}
+
+
 function userExist($pdo, $user_name){
 
 	$query = "SELECT user_name FROM `users` WHERE user_name=:user";

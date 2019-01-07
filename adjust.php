@@ -12,7 +12,6 @@ $adjust_info = array();
 $uid = $_SESSION['uid'];
 $uploads_dir = "./imgs";
 
-var_dump($_POST);
 // account info change
 if (isset($_POST["submit"]) && ($_POST["submit"] == "Update account"))
 {
@@ -52,9 +51,6 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "Update account"))
 }
 
 
-// TO-DO birthdate (check all)
-
-
 // Other account info
 if (isset($_POST["submit"]) && ($_POST["submit"] == "Update profile"))
 {
@@ -89,9 +85,9 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "Update profile"))
 		$adjust_info["longitude"] = addQuotes(sanitize($pos));
 	}
 
-	// if ($_POST["birthday"] !== "")	{
-	// 	$adjust_info["bio"] = addQuotes(sanitize($_POST["bio"]));
-	// }
+	if ($_POST["birthdate"] !== "")	{
+		$adjust_info["birthdate"] = addQuotes(sanitize($_POST["birthdate"]));
+	}
 
 	sqlUpdate($adjust_info, $pdo, $error, $uid);
 }
