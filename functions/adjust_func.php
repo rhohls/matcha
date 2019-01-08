@@ -12,7 +12,7 @@ function accountCompleted($pdo, $uid){
 		$user['gender'] != 'none' &&
 		$user['birthdate'] != '1888-01-01'
 		){
-			$query = "UPDATE `users` SET comlete=1 WHERE id=:uid;";
+			$query = "UPDATE `users` SET complete=1 WHERE id=:uid;";
 
 			$stmt = $pdo->prepare($query);
 			$stmt->execute(['uid' => $uid]);

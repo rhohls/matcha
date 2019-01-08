@@ -91,7 +91,7 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "Update profile"))
 
 	sqlUpdate($adjust_info, $pdo, $error, $uid);
 }
-
+// var_dump($_POST);
 // image upload
 if(isset($_POST["insert"]))  
 { 
@@ -108,17 +108,36 @@ if(isset($_POST["insert"]))
 		$query = "INSERT INTO `images` (user_id, image_location) VALUES (:uid, :loc)";
 		$stmt = $pdo->prepare($query);
 		$stmt->execute(["uid" => $uid, "loc" => $store_location]); //use this for security
-		
-		alert_info("Please choose a file to upload");
 
-		if($_POST["insert"] = "Change profile picture"){
-			$query = "UPDATE `users` SET (profile_img) VALUES (:img_loc) WHERE id=:uid;";
+		if($_POST["insert"] == "Change profile picture"){
+			$query = "UPDATE `users` SET profile_img_loc='$store_location' WHERE id=$uid;";
 			
 			$stmt = $pdo->prepare($query);
-			$stmt->execute(["uid" => $uid, "img_loc" => $store_location]); 
+			$stmt->execute(); 
 		}
 		else {
-			
+			//fetch array of images
+			$query = "SELECT * FROM `users` WHERE id=$uid ";
+			$stmt = $pdo->prepare($query);
+			$stmt->execute();
+
+			$profile_info = $stmt->fetch();
+			$profile_images = unserialize($profile_info['images']);
+
+			//limit to 5 images
+			if (!$profile_images){
+				$profile_images = [];
+			}
+			else if (sizeof($profile_images) > 5){
+				array_shift($profile_images);
+			}
+			//add image and update table
+			array_push($profile_images, $store_location);
+			$info = serialize($profile_images);
+
+			$query = "UPDATE `users` SET images='$info' WHERE id=$uid;";	
+			$stmt = $pdo->prepare($query);
+			$stmt->execute();
 		}
 	}
 	else{

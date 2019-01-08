@@ -39,11 +39,11 @@ function profileComplete($uid, $pdo){
 
 	$res = $stmt->fetch();
 
-	return(true);
-	// if ($res)
-	// 	return (true);
-	// else
-	// 	return (false);
+	// return(true);
+	if ($res)
+		return (true);
+	else
+		return (false);
 }
 
 // This functions works, dont read to much into the variable names

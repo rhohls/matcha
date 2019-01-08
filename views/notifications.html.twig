@@ -30,7 +30,7 @@
 {# conn #}
 <h2>People who connected with you</h2>
 <ul>
-	{% for user in connect %}
+	{% for user in connects %}
 		<li><a href="profile.php?usr_id={{user.user_from}}">{{user.first_name}} {{user.last_name}}</a>
 	{% endfor %}
 </ul>
