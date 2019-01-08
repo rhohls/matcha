@@ -1,5 +1,11 @@
 <?php
 
+function sendNotification($profile_id, $uid, $pdo){
+	$query = "UPDATE `users` SET num_notifications =  num_notifications + 1 WHERE id=$profile_id";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+}
+
 function fetchMessages($pdo, $uid, $partner){
 	$query = "	SELECT * FROM `messages` WHERE 
 	from_id=:partner AND to_id=:uid OR
@@ -13,7 +19,6 @@ function fetchMessages($pdo, $uid, $partner){
 	return ($all_messages);
 }
 
-
 function userExist($pdo, $user_name){
 
 	$query = "SELECT user_name FROM `users` WHERE user_name=:user";
@@ -26,6 +31,7 @@ function userExist($pdo, $user_name){
 	else
 		return false;
 }
+
 function userExist_id($pdo, $user_id){
 
 	$query = "SELECT user_name FROM `users` WHERE id=:user";
@@ -86,7 +92,6 @@ function exit_()
 	die();
 }
 
-
 function sanitize($str){
 	$new = htmlspecialchars($str , ENT_QUOTES);
 	return $new;
@@ -117,7 +122,6 @@ function random_profile($uid, $pdo){
 	if (count($res) >= 1){
 		$ret_id = $res[0]['id'];
 	}
-
 	return ($ret_id);
 }
 

@@ -2,11 +2,7 @@
 
 require_once "generic_functions.php";
 
-function sendNotification($profile_id, $uid, $pdo){
-	$query = "UPDATE `users` SET num_notifications =  num_notifications + 1 WHERE id=$profile_id";
-	$stmt = $pdo->prepare($query);
-	$stmt->execute();
-}
+
 
 function checkConnection($profile_id, $uid, $pdo){
 	$query = "SELECT * FROM `view_like` WHERE user_to=$profile_id AND user_from=$uid AND liked=1";

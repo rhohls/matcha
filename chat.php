@@ -3,8 +3,6 @@ session_start();
 require_once 'require.php';
 require_once 'logged_in.php';
 
-// TO-DO html user you chatting with (username at top of screen)
-
 function isConnected($pdo, $uid, $partner){
 	$query =   "SELECT * FROM `view_like` WHERE connected=1	AND user_to=:id AND user_from=:id2";
 	$stmt = $pdo->prepare($query);
@@ -21,9 +19,6 @@ function isConnected($pdo, $uid, $partner){
 $partner = $_GET['usr_id'];
 $uid = $_SESSION['uid'];
 
-// echo "part: ". $partner . "<br>";
-// echo "id: ". $uid . "<br>";
-
 //message sending & notification
 if (isset($_POST['submit']) && $_POST['submit'] == 'Send'){
 	$message = sanitize($_POST['message']);
@@ -33,7 +28,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Send'){
 
 	// TO-DO send notification --check if shows up on notification page
 
-	// sendNotification($partner, $uid, $pdo);
+	sendNotification($partner, $uid, $pdo);
 }
 
 //  -----
