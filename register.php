@@ -1,7 +1,7 @@
 <?php
 
 require_once 'require.php';
-
+// chech email valid
 $redirect = 'register.php';
 $index = 'index.php';
 
@@ -69,8 +69,9 @@ function getLocationIP(){
 	$location = array();
 
 	$ip = $_SERVER['REMOTE_ADDR'];
+	// ip localhost = ::1
 
-	if ($ip == "127.0.0.1" ||
+	if ($ip == "127.0.0.1" || $ip = "::1" ||
 			(substr_compare($ip, "10.", 0, 3) == 0)){
 
 		$location = $DB_LOC;
