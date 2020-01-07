@@ -46,19 +46,6 @@ function profileComplete($uid, $pdo){
 		return (false);
 }
 
-// This functions works, dont read to much into the variable names
-function profileBlocked($id_tocheck, $id_of_request, $pdo){
-	$query = "SELECT * FROM `blocked` WHERE user_id=$id_of_request AND blocked_id=$id_tocheck";
-	$stmt = $pdo->prepare($query);
-	$stmt->execute();
-
-	$blocked_users = $stmt->fetchAll();
-
-	if ($blocked_users)
-		return(true);
-	else
-		return (false);
-}
 
 function removeLike($profile_id, $uid, $pdo){
 	$query = "UPDATE `view_like` SET liked=0 WHERE user_to=$profile_id AND user_from=$uid ;";
@@ -91,6 +78,18 @@ function addLike($profile_id, $uid, $pdo){
 	checkConnection($profile_id, $uid, $pdo);
 }
 
+function isLiked($profile_id, $uid, $pdo){
+	$query = "SELECT * FROM `view_like` WHERE user_to=$profile_id AND user_from=$uid AND liked=1";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$liked = $stmt->fetchAll();
+
+	if ($liked)
+		return true;
+	else
+		return false;
+}
 
 function addView($profile_id, $uid, $pdo){
 	$query = "SELECT * FROM `view_like` WHERE user_to=$profile_id AND user_from=$uid AND viewed=1";
@@ -113,7 +112,7 @@ function addBlocked($profile_id, $uid, $pdo){
 		$query = "INSERT INTO `blocked` (`user_id`, `blocked_id`, `fake`) VALUES ($uid, $profile_id, 0)";
 		$stmt = $pdo->prepare($query);
 		$stmt->execute();
-		alert_info("you have blocked the user");
+		alert("You have blocked the user", "index.php");
 	}
 }
 

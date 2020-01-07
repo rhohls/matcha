@@ -32,13 +32,22 @@
 </div>
 
 <form action="#" method="POST">
-	<input type="submit" name="submit" value="Like"/>
-	<input type="submit" name="submit" value="Un-like"/>
+	{% if liked %}
+		<input type="submit" name="submit" value="Like" disabled />
+		<input type="submit" name="submit" value="Un-like"/>
+	{% else %}
+		<input type="submit" name="submit" value="Like"/>
+		<input type="submit" name="submit" value="Un-like" disabled	/>
+	{% endif %}
+
 	<input type="submit" name="submit" value="Block"/>
 	<input type="submit" name="submit" value="Report Fake"/>
-
-
 </form>
+
+{% if connected %}
+	<h4>You are connected</h4>
+	<a href="chat.php">Chat</a>
+{% endif %}
 
 
 <h3>Bio</h3>

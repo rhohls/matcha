@@ -33,10 +33,9 @@ if (isset($_POST['submit'])){
 			addFake($profile_id, $uid, $pdo);
 		else if ($_POST['submit'] == 'Block'){
 			addBlocked($profile_id, $uid, $pdo);
+			alert("Submission captured", "index.php");
 		}
-		// check line 35 works
-		alert("Submission captured", "profile.php?usr_id=$profile_id"); 
-		
+		alert("Submission captured", "profile.php?usr_id=$profile_id");
 	}
 	else{
 		alert_info("Your profile is incomplete. Please complete it to do that action");
@@ -55,14 +54,21 @@ if (!$profile_info){
 	die();	
 }
 
+			
+$liked = isLiked($profile_id, $uid, $pdo);
 $online = isOnline($profile_id, $pdo);
 $rating = fameRating($profile_id, $pdo);
+$connected = isConnected($pdo, $uid, $profile_id);
+
 echo $twig->render('profile.html.twig', array(
 	'base'		=>	$base_array,
 	'profile'	=>	$profile_info,
 	'profile_images' => $profile_images,
 	'online'	=>	$online, 
+	'liked'	=>	$liked, 
+	'connected'	=>	$connected, 
 	'rating'	=>	$rating
+
 ));
 
 ?>

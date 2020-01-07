@@ -1,6 +1,23 @@
 <?php
 
+// This functions works, dont read to much into the variable names
+function profileBlocked($id_tocheck, $id_of_request, $pdo){
+	$query = "SELECT * FROM `blocked` WHERE user_id=$id_of_request AND blocked_id=$id_tocheck";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute();
+
+	$blocked_users = $stmt->fetchAll();
+
+	if ($blocked_users)
+		return(true);
+	else
+		return (false);
+}
+
 function sendNotification($profile_id, $uid, $pdo){
+	//dont send notification if user has blocked profile
+	if (profileBlocked($uid, $profile_id, $pdo))
+		return;
 	$query = "UPDATE `users` SET num_notifications =  num_notifications + 1 WHERE id=$profile_id";
 	$stmt = $pdo->prepare($query);
 	$stmt->execute();
@@ -17,6 +34,19 @@ function fetchMessages($pdo, $uid, $partner){
 	$all_messages = $stmt->fetchAll();
 
 	return ($all_messages);
+}
+
+function isConnected($pdo, $uid, $partner){
+	$query =   "SELECT * FROM `view_like` WHERE connected=1	AND user_to=:id AND user_from=:id2";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["id" => $uid, "id2" => $partner]);
+
+	$res = $stmt->fetch();
+
+	if ($res)
+		return true;
+	else
+		return false;
 }
 
 function userExist($pdo, $user_name){
@@ -125,5 +155,30 @@ function random_profile($uid, $pdo){
 	return ($ret_id);
 }
 
+function remove_duplicate($array){
+	$new_array = array();
+	$users = array();
 
+	foreach ($array as $person) {
+		if (!in_array($person["id"], $users)){
+			array_push($new_array, $person);
+			array_push($users, $person["id"]);
+		}
+	}
+
+	return $new_array;
+}
+
+// not working ???
+function remove_blocked($array, $uid, $pdo){
+	$new_array = array();
+
+	foreach ($array as $person) {
+		if (!(profileBlocked($person["id"], $uid, $pdo))){
+			array_push($new_array, $person);
+		}
+	}
+
+	return $new_array;
+}
 ?>

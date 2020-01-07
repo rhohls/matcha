@@ -57,6 +57,13 @@ $stmt->execute(['id' => $uid]);
 	
 $connects = $stmt->fetchAll();
 
+// TODO remove blocked??
+// $messages = removed_blocked($messages, $uid, $pdo);
+// $views = removed_blocked($views, $uid, $pdo);
+// $likes = removed_blocked($likes, $uid, $pdo);
+// $connects = removed_blocked($connects, $uid, $pdo);
+
+
 echo $twig->render('notifications.html.twig', array(
 	'messages' => $messages,
 	'views' => $views,

@@ -3,18 +3,7 @@ session_start();
 require_once 'require.php';
 require_once 'logged_in.php';
 
-function isConnected($pdo, $uid, $partner){
-	$query =   "SELECT * FROM `view_like` WHERE connected=1	AND user_to=:id AND user_from=:id2";
-	$stmt = $pdo->prepare($query);
-	$stmt->execute(["id" => $uid, "id2" => $partner]);
 
-	$res = $stmt->fetch();
-
-	if ($res)
-		return true;
-	else
-		return false;
-}
 // Variables
 $partner = $_GET['usr_id'];
 $uid = $_SESSION['uid'];
@@ -36,7 +25,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Send'){
 //  -----
 if (!isset($_GET['usr_id'])){
 
-	$query =   "SELECT user_to, first_name, last_name FROM `view_like`
+	$query =   "SELECT id, user_to, first_name, last_name FROM `view_like`
 				JOIN users ON view_like.user_to=users.id
 				WHERE connected=1
 				AND user_from=:id";
@@ -44,10 +33,14 @@ if (!isset($_GET['usr_id'])){
 	$stmt->execute(["id" => $uid]);
 	
 	$all_con_users = $stmt->fetchAll();
+	$all_con_users = remove_duplicate($all_con_users);
+	$con_users =  remove_blocked($all_con_users, $uid, $pdo);
+	// var_dump($all_con_users);
+	// $con_users = $all_con_users;
 
 	echo $twig->render('chat_list.html.twig', array(
 		'base'			=>	$base_array,
-		'connections'	=>	$all_con_users
+		'connections'	=>	$con_users
 	));
 } 
 
