@@ -114,7 +114,19 @@ $pdo->query("INSERT INTO `users` (user_name, password, email, first_name, last_n
 $pdo->query("INSERT INTO `users` (user_name, password, email, first_name, last_name, confirmed, profile_img_loc, bio, sex_pref, gender, last_online, birthdate, latitude, longitude, complete, fame) values ('rvarian2p', '8723e1b97efe514cd40a8ede72a686cfc01d874dfeb61bfe578d4d9994365de9500d896d55d59a34a6640ce73791aa93b7ebbb57ecf8e6e5379ee771d34bca60', 'rvarian2p@delicious.com', 'Rutledge', 'Varian', '1', 'https://robohash.org/suscipitpariatureos.png?size=250x250&set=set1', 'mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in', 'Homosexual', 'Male', '2017-03-17 11:07:55', '2008-04-05 13:43:36', 17.0205, -91.675, '1', 84);");
 $pdo->query("INSERT INTO `users` (user_name, password, email, first_name, last_name, confirmed, profile_img_loc, bio, sex_pref, gender, last_online, birthdate, latitude, longitude, complete, fame) values ('tperkins2q', '8723e1b97efe514cd40a8ede72a686cfc01d874dfeb61bfe578d4d9994365de9500d896d55d59a34a6640ce73791aa93b7ebbb57ecf8e6e5379ee771d34bca60', 'tperkins2q@sun.com', 'Tarah', 'Perkins', '1', 'https://robohash.org/mollitiahicneque.jpg?size=250x250&set=set1', 'vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer', 'Bisexual', 'Female', '2017-12-01 15:37:39', '2010-06-11 01:01:04', -78.8018, 76.0652, '1', 92);");
 $pdo->query("INSERT INTO `users` (user_name, password, email, first_name, last_name, confirmed, profile_img_loc, bio, sex_pref, gender, last_online, birthdate, latitude, longitude, complete, fame) values ('dmcevay2r', '8723e1b97efe514cd40a8ede72a686cfc01d874dfeb61bfe578d4d9994365de9500d896d55d59a34a6640ce73791aa93b7ebbb57ecf8e6e5379ee771d34bca60', 'dmcevay2r@scribd.com', 'Dougie', 'McEvay', '1', 'https://robohash.org/sitquidemrepellat.jpg?size=250x250&set=set1', 'tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor', 'Homosexual', 'Male', '2018-02-13 12:16:48', '2015-09-28 07:48:47', -62.7532, 136.7709, '1', 52);");
-echo "Database populated with users";
+echo "Database populated with users" . PHP_EOL;
+
+
+$pdo->query("INSERT INTO `tags` (tag) values ('Cooking')");
+$pdo->query("INSERT INTO `tags` (tag) values ('Pets')");
+$pdo->query("INSERT INTO `tags` (tag) values ('Adventure')");
+$pdo->query("INSERT INTO `tags` (tag) values ('Reading')");
+$pdo->query("INSERT INTO `tags` (tag) values ('Good Food')");
+$pdo->query("INSERT INTO `tags` (tag) values ('Crafts')");
+$pdo->query("INSERT INTO `tags` (tag) values ('memes')");
+echo "Database populated with tags";
+
+
 }
 catch(PDOException $e){
 	echo "Failed to populate: <br>";

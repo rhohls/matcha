@@ -12,6 +12,15 @@ $adjust_info = array();
 $uid = $_SESSION['uid'];
 $uploads_dir = "./imgs";
 
+
+//getting user selected tags
+$query = "SELECT * FROM `user_tag` WHERE user_id=$uid;";
+$stmt = $pdo->prepare($query);
+$stmt->execute();
+$usertags = $stmt->fetchAll();
+$isloated_usertag = isolateUsertag($usertags);
+
+
 // account info change
 if (isset($_POST["submit"]) && ($_POST["submit"] == "Update account"))
 {
@@ -91,7 +100,37 @@ if (isset($_POST["submit"]) && ($_POST["submit"] == "Update profile"))
 
 	sqlUpdate($adjust_info, $pdo, $error, $uid);
 }
-// var_dump($_POST);
+
+
+//Tags
+if (isset($_POST["submit"]) && ($_POST["submit"] == "Update tags"))
+{
+	$selected_tags = array_map(function($value) {return intval($value);}, $_POST['tagSelected']);
+	
+	//usertags at top of page
+
+	//add new
+	foreach ($selected_tags as $tag){
+		if (!tagInUsertag($usertags, $tag)){
+			$tagid = $tag['id'];
+			$query = "INSERT INTO `user_tag`(`user_id`, `tag_id`) VALUES ($uid, $tag)";	
+			$stmt = $pdo->prepare($query);
+			$stmt->execute();			
+		}
+	}
+
+	//remove unselected
+	foreach ($usertags as $tag){
+		if (!in_array($tag['tag_id'], $selected_tags)){
+			$tagid = $tag['id'];
+			$query = "DELETE FROM `user_tag` WHERE id=$tagid";	
+			$stmt = $pdo->prepare($query);
+			$stmt->execute();			
+		}
+	}
+}
+
+
 // image upload
 if(isset($_POST["insert"]))  
 { 
@@ -147,7 +186,18 @@ if(isset($_POST["insert"]))
 
 
 
+$stmt = $pdo->query("SELECT * FROM `tags`");
+$all_tags = $stmt->fetchAll();
+
+//update variables for display
+$query = "SELECT * FROM `user_tag` WHERE user_id=$uid;";
+$stmt = $pdo->prepare($query);
+$stmt->execute();
+$usertags = $stmt->fetchAll();
+$isloated_usertag = isolateUsertag($usertags);
 
 echo $twig->render('adjust.html.twig', array(
-	'base' => $base_array
+	'base' => $base_array,
+	'all_tags' => $all_tags,
+	'isloated_usertag' => $isloated_usertag
 ));

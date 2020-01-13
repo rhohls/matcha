@@ -50,3 +50,19 @@ function arrayOldImages($pdo, $uid){
 	$profile_info = $stmt->fetch();
 	return (unserialize($profile_info['images']));
 }
+
+function tagInUsertag($usertag, $tagid){
+	foreach($usertag as $tag){
+		if ($tag['tag_id'] == $tagid)
+			return True;
+	}
+	return False;
+}
+
+function isolateUsertag($usertag){
+	$new = array();
+	foreach($usertag as $tag){
+		array_push($new, intval($tag['tag_id']));
+	}
+	return $new;
+}

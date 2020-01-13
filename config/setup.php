@@ -21,7 +21,7 @@ try{
 
 
     // User table
-    $user_table = "CREATE TABLE IF NOT EXISTS `users`
+    $table = "CREATE TABLE IF NOT EXISTS `users`
     (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_name VARCHAR(20) NOT NULL,
@@ -47,7 +47,7 @@ try{
         complete INT NOT NULL DEFAULT 0
 
     );";
-    $pdo->query($user_table);
+    $pdo->query($table);
     // adding admin
     if (!userExist($pdo, 'admin')){
         $pw = hashPW('root');
@@ -91,22 +91,35 @@ try{
     $pdo->query($comment_table);
 
     // Blocked
-    $user_table = "CREATE TABLE IF NOT EXISTS `blocked`
+    $table = "CREATE TABLE IF NOT EXISTS `blocked`
     (
         user_id INT NOT NULL,
         blocked_id INT NOT NULL,
         fake INT NOT NULL DEFAULT 0
     );";
-    $pdo->query($user_table);
+    $pdo->query($table);
 
 
-    // notification
-    $user_table = "CREATE TABLE IF NOT EXISTS `users`
+
+
+    // tags
+    $table = "CREATE TABLE IF NOT EXISTS `tags`
     (
-        user_id INT NOT NULL ,
-        blocked_id INT
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        tag VARCHAR(20) NOT NULL
     );";
-    $pdo->query($user_table);
+    $pdo->query($table);
+
+    //usertag
+    $table = "CREATE TABLE IF NOT EXISTS `user_tag`
+    (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        user_id INT NOT NULL,
+        tag_id INT NOT NULL
+    );";
+    $pdo->query($table);
+
+
 
     echo "Databse created successfully!" . PHP_EOL;
 }
