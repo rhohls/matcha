@@ -1,4 +1,3 @@
-
 <?php
 function getDistance($latitude1, $longitude1, $latitude2, $longitude2 )
 {

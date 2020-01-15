@@ -41,8 +41,7 @@ $fame_search = "`fame`>$fame_min";
 //location
 //do it in post
 
-
-
+//Name
 $name = "";
 
 
