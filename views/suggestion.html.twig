@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2>Add Tags</h2>
+<br>
+<table class="form_table">
+	<tr>
+		<td><h3>Name</h3></td>
+	</tr>
+
+	{% for tag in all_tags %}
+
+
+	<tr>
+		<td> {{tag.tag}} </td>
+		<td> <input type="checkbox" name="tagSelected[]" value={{tag.id}} 
+			{% if tag.id in isloated_usertag %}
+			checked
+			{% endif %}
+			/> </td>
+	</tr>
+
+	{% endfor %}
+
+</table>
+
+
+
+{% endblock %}
