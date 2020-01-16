@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2>SEARCH RESULTS</h2>
+<br>
+<table class="form_table">
+	<tr>
+		<th><a href="searchresults.php?orderby=name"> Name</a></th>
+		<th><a href="searchresults.php?orderby=gender"> Gender </a></th>
+		<th><a href="searchresults.php?orderby=sex_pref"> Sexual Prefrence </a></th>
+		<th><a href="searchresults.php?orderby=fame"> Fame Rating </a></th>
+		<th><a href="searchresults.php?orderby=age"> Age </a></th>
+		<th><a href="searchresults.php?orderby=distance"> Distance </a></th>
+		<th><a href="searchresults.php?orderby=tags_matching"> Tags </a></th>
+ 
+	</tr>
+
+	{% for user in users %}
+
+	<tr>
+		
+		<td> <a href="profile.php?usr_id={{user.id}}">{{user.first_name}} </a></td>
+		
+		<td>{{user.gender}}</td>
+		<td>{{user.sex_pref}}</td>
+		<td>{{user.fame}}</td>
+		<td>{{user.age}}</td>
+		<td>{{user.distance}}</td>
+		<td>{{user.tags_matching}}</td>
+	</tr>
+	{% endfor %}
+
+</table>
+
+
+
+{% endblock %}

@@ -6,24 +6,24 @@
 <br>
 <table class="form_table">
 	<tr>
-		<td>Name</td>
-		<td>Age</td>
-		<td>Fame</td>
-		<td>Location</td>
+		<th>Name</th>
+		<th>Gender</th>
+		<th>Sexual Prefrence</th>
+		<th>Fame Rating</th>
+		<th>Age</th>
 	</tr>
 
-	{% for tag in all_tags %}
-
+	{% for user in users %}
 
 	<tr>
-		<td> {{tag.tag}} </td>
-		<td> <input type="checkbox" name="tagSelected[]" value={{tag.id}} 
-			{% if tag.id in isloated_usertag %}
-			checked
-			{% endif %}
-			/> </td>
+		
+		<td> <a href="profile.php?usr_id={{user.id}}">{{user.first_name}} </a></td>
+		
+		<td>{{user.gender}}</td>
+		<td>{{user.sex_pref}}</td>
+		<td>{{user.fame}}</td>
+		<td>{{user.age}}</td>
 	</tr>
-
 	{% endfor %}
 
 </table>
