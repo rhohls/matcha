@@ -102,7 +102,7 @@ function hashPW($pw){
 }
 
 function checkPassword($pwd) {
-    if (strlen($pwd) < 1) {
+    if (strlen($pwd) < 9) { 
 		alert_info("pw length ". strlen($pwd) );
         return "Password too short!";
     }
